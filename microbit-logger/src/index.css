@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+  background-color: lightgrey;
+  border-bottom: 3px solid black;
+}
+
+#navbar > div {
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+#navbar > .tab {
+  padding: 1%;
+  font-size: 25px;
+}
+
+#display {
+  margin: 5%;
+  flex-grow: 1;
+  border: 1px solid black;
+}
