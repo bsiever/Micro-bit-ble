@@ -33,9 +33,15 @@ code {
   margin-right: 1.5%;
 }
 
-#navbar > .tab {
+.tab {
   padding: 1%;
   font-size: 25px;
+}
+
+.button {
+  padding: 10px;
+  font-size: 25px;
+  margin-right: 2%;
 }
 
 #display {
