@@ -11,17 +11,12 @@ const Navbar = () => {
 
     return (
         <div id='navbar'>
-            <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '50%'}}>
-                <div style={{width: '80px', height: '80px', border: '1px solid black', marginRight: '2%'}}></div>
-                Micro:Bit Bluetooth Web Logger
-                <div style={{display: 'flex', justifyContent: 'space-around', width: '50%'}}>
+            <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
+                <div style={{display: 'flex', justifyContent: 'space-around', width: '100%'}}>
                     <div className="tab"><a href=''>Graphs</a></div>
+                    <button className="button connectButton" onClick={(event) => handleConnectButtonClick(event)}>+</button>
                     <div className="tab"><a href="">Data</a></div>
                 </div>
-            </div>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%'}}>
-                <button className="button connectButton" onClick={(event) => handleConnectButtonClick(event)}>Connect</button>
-                <button className="button helpButton">Help</button>
             </div>
         </div>
     )
