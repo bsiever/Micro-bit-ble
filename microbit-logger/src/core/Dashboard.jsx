@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import React from "react";
 import Navbar from "./Navbar";
 import { uBitManager } from "../microbit/ubitwebblelog";
@@ -6,7 +6,7 @@ import { uBitManager } from "../microbit/ubitwebblelog";
 export const MicrobitContext = React.createContext({})
 
 const Dashboard = () => {
-    const microbitManager = new uBitManager();
+    const microbitManager = useRef(new uBitManager());
     const [context, setContext] = useState({microbits: []})
 
     return (

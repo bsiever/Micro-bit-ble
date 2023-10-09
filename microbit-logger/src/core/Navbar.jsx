@@ -1,14 +1,12 @@
 import { useContext } from "react";
-import { uBit, uBitManager } from "../microbit/ubitwebblelog";
 import { MicrobitContext } from "./Dashboard";
 
 const Navbar = () => {
-    const {microbits, updateContext} = useContext(MicrobitContext);
-    const microbitManager = new uBitManager();
+    const {microbitManager} = useContext(MicrobitContext);
 
     const handleConnectButtonClick = async (event) => {
-        await microbitManager.connect();
-        console.log(microbitManager.devices);
+        await microbitManager.current.connect();
+        console.log(microbitManager.current.devices);
     }
 
     return (
