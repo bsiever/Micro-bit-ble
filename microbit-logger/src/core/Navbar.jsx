@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { MicrobitContext } from "./Dashboard";
+import Table from "../table/Table"
 
 const Navbar = () => {
     const {microbitManager} = useContext(MicrobitContext);

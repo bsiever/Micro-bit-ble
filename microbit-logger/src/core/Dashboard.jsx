@@ -29,7 +29,7 @@ const Dashboard = () => {
         <MicrobitContext.Provider value={{...context, microbitManager: microbitManager, updateContext: setContext}}>
         <div id='dashboard'>
             {adaptive ? <><NavbarWide/><PlotBar/></> : <button className="button helpButton">Help</button>}
-            <div id='display'><Loadingbar/></div>
+            <div id='display'><Loadingbar/><Table/></div>
             {!adaptive && <Navbar/>}
         </div>
         </MicrobitContext.Provider>
