@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import NavbarWide from "./NavbarWide";
 import { uBitManager } from "../microbit/ubitwebblelog";
+import { PlotBar, ProgressBar } from "./PlotBar";
 
 export const MicrobitContext = React.createContext({})
 
@@ -26,7 +27,7 @@ const Dashboard = () => {
     return (
         <MicrobitContext.Provider value={{...context, microbitManager: microbitManager, updateContext: setContext}}>
         <div id='dashboard'>
-            {adaptive ? <NavbarWide/> : <button className="button helpButton">Help</button>}
+            {adaptive ? <><NavbarWide/><PlotBar/></> : <button className="button helpButton">Help</button>}
             <div id='display'></div>
             {!adaptive && <Navbar/>}
         </div>
