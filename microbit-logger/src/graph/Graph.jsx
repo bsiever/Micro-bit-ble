@@ -16,14 +16,14 @@ const Graph = () => {
             )
         }
 
-        microbitManager.current.addEventListener("data-ready", graph)
+        microbitManager.addEventListener("data-ready", graph)
         return () => {
-            microbitManager.current.removeEventListener("data-ready", graph)
+            microbitManager.removeEventListener("data-ready", graph)
         }
     }, [])
 
     return (
-        <div id="graph"></div>
+        <div id="graph" style={{width: '85vw', height: '60vh'}}></div>
     )
 }
 

@@ -36,6 +36,11 @@ code {
 .tab {
   padding: 1%;
   font-size: 25px;
+  text-decoration: underline;
+}
+
+.tab:hover {
+  cursor: pointer;
 }
 
 .button {

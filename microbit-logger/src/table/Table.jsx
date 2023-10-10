@@ -1,22 +1,12 @@
-import { useContext, useEffect } from "react";
-import { MicrobitContext } from "../core/Dashboard";
-
-const Table = () => {
-	const {microbitManager} = useContext(MicrobitContext);
-	const {microbits, updateContext} = useContext(MicrobitContext);
+const Table = ({microbit}) => {
+    console.log(microbit);
 
 
-	var map = microbitManager.current.devices;
-	const bitName= map
-
-	for(let [key, value] of map){
-        const headers = value.getHeaders();
-		console.log(value.getHeaders());
+        const headers = microbit.getHeaders();
         const renderHeaders = headers.map((item) =>
                                         <th >{item}</th>);
         
-        const rows = value.getData();
-        console.log(rows);
+        const rows = microbit.getData();
 
         return (
 		<div className='table'>
@@ -43,11 +33,6 @@ const Table = () => {
             <br/>
 		</div>
 	)
-	}
-
-    
-
-	
 }
 
 export default Table

@@ -5,12 +5,8 @@ const Navbar = () => {
     const {microbitManager, updateContext} = useContext(MicrobitContext);
 
     const handleConnectButtonClick = async (event) => {
-        try {
-            await microbitManager.connect();
-            updateContext({microbits: Array.from(microbitManager.devices.values())});
-        } catch(e) {
-            console.log(e);
-        }
+        await microbitManager.connect();
+        
     }
 
     return (
