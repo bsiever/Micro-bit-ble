@@ -18,7 +18,26 @@ export const PlotBar = ({microbit}) => {
     const handleEditButtonClick = async (event) => {
         // edit button functionality
     }
-
+    const handleDownloadButtonClick = async (event) => {
+        const file = new File([microbit.getCSV()], 'uBitData.csv', {
+            type: 'text/csv'
+        })
+        function download() {
+            const link = document.createElement('a')
+            const url = URL.createObjectURL(file)
+          
+            link.href = url
+            link.download = file.name
+            document.body.appendChild(link)
+            link.click()
+          
+            document.body.removeChild(link)
+            window.URL.revokeObjectURL(url)
+          }
+       
+        download();
+        
+    }
 
     useEffect(() => {
         microbitManager.addEventListener('log-usage', (usage) => {
@@ -40,7 +59,7 @@ export const PlotBar = ({microbit}) => {
                     <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={settingsLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' , marginTop: '-10%',fontSize: '20px'}} />
                     </button>
-                    <button  style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
+                    <button  onClick={(event) => handleDownloadButtonClick(event)} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={downloadLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
                     <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
