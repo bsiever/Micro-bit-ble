@@ -20,7 +20,7 @@ const DashboardView = ({view}) => {
             {microbits.map((microbit) => {
                 return <div key={microbit.id}>
                     <PlotBar microbit={microbit}/>
-                    {tableReady ? view != 'table' ? <Graph/> : <Table microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
+                    {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <Table microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
                 </div>
             })}
         </div>

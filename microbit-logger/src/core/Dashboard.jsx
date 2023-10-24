@@ -12,9 +12,12 @@ const microbitContextReducer = (state, action) => {
 }
 
 const Dashboard = () => {
-    const mediaQuery = window.matchMedia("(min-width: 600px)")
-    const microbitManager = useRef(new uBitManager())
+    // Define breakpoint for adaptive rendering
+    const mediaQuery = window.matchMedia("(min-width: 600px)");
+    // Adapt to current display width
     const [adaptive, setAdaptive] = useState(mediaQuery.matches);
+
+    const microbitManager = useRef(new uBitManager());
     const [view, setView] = useState("graph");
     const [context, dispatch] = useReducer(microbitContextReducer, {microbits: [], microbitManager: microbitManager.current, updateContext: (object) => dispatch(object)})
 
