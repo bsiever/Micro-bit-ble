@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { MicrobitContext } from "./Dashboard";
 import PlotBar from "./PlotBar";
 import Loadingbar from "./Loadingbar";
-import Table from "../table/Table";
+import DataTable from "../table/DataTable";
 import Graph from "../graph/Graph";
 
 const DashboardView = ({view}) => {
@@ -20,7 +20,7 @@ const DashboardView = ({view}) => {
             {microbits.map((microbit) => {
                 return <div key={microbit.id}>
                     <PlotBar microbit={microbit}/>
-                    {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <Table microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
+                    {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <DataTable microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
                 </div>
             })}
         </div>
