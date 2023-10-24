@@ -4,6 +4,7 @@ import PlotBar from "./PlotBar";
 import Loadingbar from "./Loadingbar";
 import DataTable from "../table/DataTable";
 import Graph from "../graph/Graph";
+import { EraseModal } from "./EraseModal";
 
 const DashboardView = ({view}) => {
     const {microbits, microbitManager} = useContext(MicrobitContext);
@@ -19,6 +20,7 @@ const DashboardView = ({view}) => {
         <div>
             {microbits.map((microbit) => {
                 return <div key={microbit.id}>
+                    <EraseModal microbit={microbit} />
                     <PlotBar microbit={microbit}/>
                     {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <DataTable microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
                 </div>

@@ -4,8 +4,9 @@
     "\\microbit-logger",
     "\\microbit-logger\\src",
     "\\microbit-logger\\src\\core",
-    "\\microbit-logger\\src\\microbit"
+    "\\microbit-logger\\src\\microbit",
+    "\\microbit-logger\\src\\table"
   ],
-  "SelectedNode": "\\microbit-logger\\README.md",
+  "SelectedNode": "\\microbit-logger\\src\\index.css",
   "PreviewInSolutionExplorer": false
 }

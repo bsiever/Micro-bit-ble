@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { uBit, uBitManager } from "../microbit/ubitwebblelog";
 import { MicrobitContext } from "./Dashboard";
+import { EraseModal } from "./EraseModal";
 
 import editLogo from '../images/editLogo.png';
 import settingsLogo from '../images/settingsLogo.png';
@@ -39,6 +40,15 @@ export const PlotBar = ({microbit}) => {
         
     }
 
+    const handleEraseButtonClick = async (event) => {
+        const modal = document.querySelector(".modal");
+        const overlay = document.querySelector(".overlay");
+
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    }
+
+
     useEffect(() => {
         microbitManager.addEventListener('log-usage', (usage) => {
             if(usage.detail.device === microbit) {
@@ -49,6 +59,7 @@ export const PlotBar = ({microbit}) => {
 
 
     return <div className="container">
+        
         <div id="plot-bar">
             <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>    
                 <div className="micro-bit-name">{microbit.name}</div>
@@ -65,7 +76,7 @@ export const PlotBar = ({microbit}) => {
                     <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={disconnectLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
-                    <button  style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
+                    <button onClick={(event) => handleEraseButtonClick(event)} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={deleteLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
                 </div>  
