@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
-import { useState, useEffect, useRef } from "react";
-import { uBit, uBitManager } from "../microbit/ubitwebblelog";
+import { useState, useEffect, useMemo } from "react";
 import { MicrobitContext } from "./Dashboard";
-import { TimerContext } from "./DashboardView";
 
 import editLogo from '../images/editLogo.png';
 import settingsLogo from '../images/settingsLogo.png';
 import downloadLogo from '../images/downloadLogo.png';
 import disconnectLogo from '../images/disconnectLogo.png';
 import deleteLogo from '../images/deleteLogo.png';
+import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
+import Tooltip from 'react-bootstrap/Tooltip';
+import UsableTooltip from "./UsableTooltip";
 
 
-export const PlotBar = ({ microbit }, {startTimer}) => {
-    const [progress, setProgress] = useState(0);
-    const { setTimer } = useContext(TimerContext);
+export const PlotBar = ({microbit, onEraseClick}) => {
+    const[progress, setProgress] = useState(0);
 
     const {microbitManager} = useContext(MicrobitContext);
 
@@ -41,63 +41,6 @@ export const PlotBar = ({ microbit }, {startTimer}) => {
         
     }
 
-    const handleEraseButtonClick = async (event) => {
-        const modal = document.querySelector(".modal");
-        const overlay = document.querySelector(".overlay");
-        setTimer(clearTimer(getDeadTime()));
-        modal.classList.remove("hidden");
-        overlay.classList.remove("hidden");
-    }
-
-
-    const Ref = useRef(null);
-
-    const getTimeRemaining = (e) => {
-        const total = Date.parse(e) - Date.parse(new Date());
-        return {
-            total
-        };
-    }
-
-    const beginTimer = (e) => {
-        let { total }
-            = getTimeRemaining(e);
-        if (total >= 0) {
-            setTimer(
-                total/1000
-            )
-        }
-    }
-
-    const clearTimer = (e) => {
-        setTimer(3);
-
-        if (Ref.current) clearInterval(Ref.current);
-        const id = setInterval(() => {
-            beginTimer(e);
-        }, 50)
-        Ref.current = id;
-    }
-
-    const getDeadTime = () => {
-        let deadline = new Date();
-
-        deadline.setSeconds(deadline.getSeconds() + 4);
-        return deadline;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     useEffect(() => {
         microbitManager.addEventListener('log-usage', (usage) => {
@@ -122,26 +65,27 @@ export const PlotBar = ({ microbit }, {startTimer}) => {
         ;
     };
 
-    return <div className="container">
+    return (
         <div id="plot-bar">
             <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
                 <div className="micro-bit-name">{microbit.name}</div>
-                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '25%'}}>
-                    <button onClick={(event) => handleEditButtonClick(event)}style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
-                        <img src={editLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
+                <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                    {/* <button onClick={(event) => handleEditButtonClick(event)} className='actionButton'>
+                        <img src={editLogo} />
                     </button>
-                    <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
-                        <img src={settingsLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' , marginTop: '-10%',fontSize: '20px'}} />
-                    </button>
-                    <button  onClick={(event) => handleDownloadButtonClick(event)} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
-                        <img src={downloadLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
-                    </button>
-                    <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
-                        <img src={disconnectLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
-                    </button>
-                    <button onClick={handleEraseButtonClick} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
-                        <img src={deleteLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
-                    </button>
+                    <button className='actionButton'>
+                        <img src={settingsLogo}  />
+                    </button> */}
+                    <UsableTooltip title='Download CSV' placement='top'><button  onClick={(event) => handleDownloadButtonClick(event)} className='actionButton'>
+                        <img src={downloadLogo} />
+                    </button></UsableTooltip>
+                    {/* <button className='actionButton'>
+                        <img src={disconnectLogo} />
+                    </button> */}
+                    <UsableTooltip title='Clear micro:bit Data' placement='top'><button onClick={onEraseClick} className='actionButton'>
+                        <img src={deleteLogo} />
+                    </button></UsableTooltip>
+                    
                 </div>
                 <div className="memory-bar">
                     <div className="memory-bar-fill" style={{ width: progress+'%', backgroundColor: getColor(), borderRadius: "10px" }}></div>
@@ -149,7 +93,7 @@ export const PlotBar = ({ microbit }, {startTimer}) => {
                 </div>
             </div>
         </div>
-    </div>
+    )
 }
 
 export default PlotBar;

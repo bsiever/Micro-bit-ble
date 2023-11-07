@@ -1,10 +1,14 @@
-body {
-  margin: 0;
+* {
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0; 
 }
 
 code {
@@ -15,6 +19,7 @@ code {
 #dashboard {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 }
@@ -22,10 +27,10 @@ code {
 #navbar {
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 10vh;
-  background-color: lightgrey;
-  border-bottom: 3px solid black;
+  background-color: #F8F8F8;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 #navbar > div {
@@ -33,14 +38,58 @@ code {
   margin-right: 1.5%;
 }
 
-.tab {
-  
-  font-size: 25px;
-  padding: 10px;
-  margin-right: 2%;
+@media screen and (max-width: 600px) {
+  #navbar {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .tab {
+    border-left: none !important;
+  }
 }
 
-.tab:hover {
+#landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  width: 50%;
+  padding: 5vh 8vw 5vh 8vw;
+  max-height: 75vh;
+  background-color: #F8F8F8;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-size: 1.75em;
+  text-align: center;
+  overflow: hidden;
+}
+
+#landing > button {
+  width: 50%;
+  min-width: 50%;
+  height: 7vh;
+  font-size: xx-large;
+  font-weight: bold;
+  margin-bottom: 1vh;
+  transition: scale .2s;
+}
+
+.connectButton {
+  border-radius: 10px;
+  color: black;
+  border: 3px solid #002967;
+  background-color: #59a1e5;
+  box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.30);
+}
+
+.connectButton:hover {
+  background-color: #4991D4;
+  color: black;
+  border: 3px solid #002967;
+  transition: background-color .2s, scale .2s;
+  scale: 1.025;
   cursor: pointer;
 }
 
@@ -50,7 +99,80 @@ code {
   margin-right: 2%;
 }
 
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  height: 6vh;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-left: 2px solid rgb(58, 58, 58);
+}
+
+.tab:first-child {
+  border-left: none;
+}
+
+.tab:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  scale: 1.05;
+  transition: scale, .2s;
+}
+
+.helpButton {
+  text-align: center;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid black;
+  font-size: 1.5em;
+  font-weight: bold;
+  scale: 1;
+  transition: scale, .2s;
+}
+
+.helpButton:hover {
+  scale: 1.05;
+  transition: scale, .2s;
+  cursor: pointer;
+}
+
+.actionButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px; 
+  margin: 1% 1vw 0 1vw;
+  height: 40px;
+  font-size: 20px;
+  border: 0;
+  background: transparent;
+}
+
+.actionButton:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transition: scale, .2s;
+}
+
+.actionButton > * {
+  width: 40px;
+  height: 40px;
+}
+
+.disabled {
+  color: lightgrey;
+}
+
 #display {
+  width: 80%;
+  height: 60%;
   margin: 5%;
   flex-grow: 1;
   border: 1px solid black;
@@ -91,7 +213,6 @@ table{
 
 #plot-bar{
   width: 100%;
-  height: 60px;
   background-color: #555555
 }
 
@@ -110,7 +231,7 @@ table{
 }
 
 .memory-bar{
-  width: 98%;
+  width: 100%;
   height: 20px;
   border-radius: 10px;
   background-color: #eeeeee;
@@ -132,116 +253,12 @@ table{
 }
 
 
-/* modal stuff */
-.modal {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.4rem;
-    padding: 1.3rem;
-    background-color: white;
-    border: 8px solid lightgrey;
-    max-width: 30%;
-    border-radius: 4px;
-    z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-.hidden {
-    display: none;
-}
-
-
-.overlay {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
-    z-index: 1;
-}
-
-.flex-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.modal-button-delete {
-    color: white;
-    background-color: red;
-    margin-left: auto;
-    margin-right: auto;
-    border: 0;
-    width: 90%;
-    transition-duration: 0.2s;
-}
-
-.modal-button-delete:hover {
-    background-color: darkred;
-    color: white;
-}
-
-.modal-button {
-    color: white;
-    background-color: #555555;
-    margin-right: auto;
-    border: 0;
-    width: 90%;
-    transition-duration: 0.2s;
-}
-
-    .modal-button:hover {
-        background-color: black;
-        color: white;
-    }
-    .accordion {
-      font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-      margin: 1rem auto;
-    }
-    
-    .accordion-title {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      cursor: pointer;
-      background-color: #d3d3d3;
-      font-size: 25px;
-    }
-    
-    .accordion-title:hover {
-      background-color: #c2c2c2;
-    }
-    
-    .accordion-title,
-    .accordion-content {
-      padding: 1rem;
-    }
-    
-    .accordion-content {
-      background-color: #dfdede;
-      font-size: 22px;
-      font-weight:lighter;
-    }
-    
-    h7 {
-      display: block;
-      font-size: 2em;
-      margin-top: 0.67em;
-      margin-bottom: 0.67em;
-      margin-left: 0.5em;
-      margin-right: 0;
-      font-weight:600;
-    
-    }
+  h7 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0.5em;
+    margin-right: 0;
+    font-weight:600;  
+  }

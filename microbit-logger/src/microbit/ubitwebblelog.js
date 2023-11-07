@@ -1004,6 +1004,7 @@ export class uBit extends EventTarget {
  * @fires row-updated
  * @fires device-list-changed
  * @fires headers-updated
+ * @fires connect-error
  */
 export class uBitManager extends EventTarget {
   /**
@@ -1069,27 +1070,32 @@ export class uBitManager extends EventTarget {
    * Connect to a device
    */
   async connect() {
-    let device = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: "uBit" }],
-      optionalServices: [SERVICE_UUID],
-    });
-    let server = await device.gatt.connect();
-    let services = await server.getPrimaryServices();
-    services = services.filter((u) => u.uuid == SERVICE_UUID);
-    if (services.length > 0) {
-      let service = services[0];
-      let chars = await service.getCharacteristics();
-      // Add or update the device
-      let uB = this.devices.get(device.id);
-      if (!uB) {
-        uB = new uBit(this);
-        this.devices.set(device.id, uB);
-        this.notifyDeviceListChanged();
+    try {
+      let device = await navigator.bluetooth.requestDevice({
+        filters: [{ namePrefix: "uBit" }],
+        optionalServices: [SERVICE_UUID],
+      });
+      let server = await device.gatt.connect();
+      let services = await server.getPrimaryServices();
+      services = services.filter((u) => u.uuid == SERVICE_UUID);
+      if (services.length > 0) {
+        let service = services[0];
+        let chars = await service.getCharacteristics();
+        // Add or update the device
+        let uB = this.devices.get(device.id);
+        if (!uB) {
+          uB = new uBit(this);
+          this.devices.set(device.id, uB);
+          this.notifyDeviceListChanged();
+        }
+        await uB.onConnect(service, chars, device);
+      } else {
+        //   await uB.devices.gatt.disconnect();
+        console.warn("No service found!");
       }
-      await uB.onConnect(service, chars, device);
-    } else {
-      //   await uB.devices.gatt.disconnect();
-      console.warn("No service found!");
+    } catch (e) {
+      // sends event for connection errors with the chooser
+      this.dispatchEvent(new CustomEvent("connect-error", e));
     }
   }
 

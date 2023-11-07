@@ -4,26 +4,13 @@ import PlotBar from "./PlotBar";
 import Loadingbar from "./Loadingbar";
 import DataTable from "../table/DataTable";
 import Graph from "../graph/Graph";
-import { EraseModal } from "./EraseModal";
 import React from 'react';
-import Accordion from './Accordion';
-
-export const TimerContext = createContext();
-
-const TimerContextProvider = ({ children }) => {
-    const [timer, setTimer] = useState(4);
-
-    return (
-        <TimerContext.Provider value={{ timer, setTimer }}>
-            { children}
-        </TimerContext.Provider>
-    );
-};
-
+import EraseModal from "./modals/EraseModal"
 
 const DashboardView = ({view}) => {
     const {microbits, microbitManager} = useContext(MicrobitContext);
     const [tableReady, setTableReady] = useState(null);
+    const [modalShown, setModalShown] = useState(false);
 
     useEffect(() => {
         function ready(e) {
@@ -35,44 +22,21 @@ const DashboardView = ({view}) => {
             microbitManager.removeEventListener('data-ready', ready)
         }
     }, [])
-    const accordionData = [
-        {
-          title: 'About the App',
-          content: `This is an application to view and download data from your Micro-Bit. Instead of having to manually reterive data off of your Micro-Bit, this app will connect to your
-          device, reterive the data, graph it, and offer a way to download your data to your device. This app was designed as part of Michigan Technological University's Senior Design program.`
-        },
-        {
-          title: 'How to Connect a Micro:Bit',
-          content: `Click the 'connect' button in the upper right corner on desktop or at the bottom of the screen on mobile to pair and/or connect a Micro-Bit. 
-          The data already on the Micro-Bit will be loaded, and any data collected while the device is connected will be continually added to the plot and table.`
-        },
-        
-      ];
-    
-      
     
     return (
-        <div>
-
-            {microbits.length>0 ? microbits.map((microbit) => {
+        <div id='display' style={{overflowY: view === 'graph' ? 'hidden' : 'visible'}}>
+            {microbits.map((microbit) => {
                 return <div key={microbit.id}>
-                    
-                    <TimerContextProvider>
-                        <EraseModal microbit={microbit} />
-                        <PlotBar microbit={microbit} />
-                    </TimerContextProvider>
-                    {tableReady ? view != 'table' ? <Graph microbit={microbit} /> : <DataTable microbit={microbit} /> : <Loadingbar microbit={microbit} />}
+                    <PlotBar microbit={microbit} onEraseClick={() => setModalShown(true)}/>
+                    {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <DataTable microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
+                    <EraseModal microbit={microbit} visible={modalShown} onDelete={() => {
+                        microbit.sendErase();
+                        setModalShown(false);
+                    }} onClose={() => setModalShown(false)}/>
                 </div>
-            }):
-            <div>
-            <h7>Micro:Bit Bluetooth Web Logger </h7>
-            <div className="accordion">
-              {accordionData.map(({ title, content }) => (
-                <Accordion title={title} content={content} />
-              ))}
-            </div>
-            </div>}
-          </div>
+            })}
+            
+        </div>
     )
 }
 
