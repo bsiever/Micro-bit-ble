@@ -57,13 +57,26 @@ export const PlotBar = ({microbit}) => {
         })
     }, []);
 
+    const getColor = () => {
+        let n;
+        n = (progress < 25) ? 1 : Math.max(75-progress, 0)/50;
+        let g = [n* 46, n*204, n* 71];
+        n = (progress < 75) ? Math.max((progress-25)/50, 0) : Math.max(100-progress, 0)/25;
+        let y = [n*255, n*165, n*  0];
+        n = Math.max((progress-75)/25, 0);
+        let r = [n*255, n*  0, n*  0];
+        return "#" +
+            ("0" + Math.round(g[0]+y[0]+r[0]).toString(16)).slice(-2) +
+            ("0" + Math.round(g[1]+y[1]+r[1]).toString(16)).slice(-2) +
+            ("0" + Math.round(g[2]+y[2]+r[2]).toString(16)).slice(-2)
+        ;
+    };
 
     return <div className="container">
-        
         <div id="plot-bar">
-            <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>    
+            <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
                 <div className="micro-bit-name">{microbit.name}</div>
-                <div style={{display: 'flex', justifyContent: 'space-around', width: '25%'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', minWidth: '25%'}}>
                     <button onClick={(event) => handleEditButtonClick(event)}style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={editLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
@@ -79,12 +92,12 @@ export const PlotBar = ({microbit}) => {
                     <button onClick={(event) => handleEraseButtonClick(event)} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={deleteLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
-                </div>  
+                </div>
+                <div className="memory-bar">
+                    <div className="memory-bar-fill" style={{ width: progress+'%', backgroundColor: getColor(), borderRadius: "10px" }}></div>
+                    <div className="memory-bar-label" style={{float: 'right', marginTop: '4px'}}>{progress}% memory used</div>
+                </div>
             </div>
-            <div className="memory-bar-label" style={{marginTop: '-1%',display: 'flex', justifyContent: 'flex-end', width: '98%'}}>{progress}% memory used</div>
-        </div>
-        <div className="memory-bar">
-            <div className="memory-bar-fill" style={{ width: progress+'%' }}></div>
         </div>
     </div>
 }
