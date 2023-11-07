@@ -8,12 +8,17 @@ import { EraseModal } from "./EraseModal";
 
 const DashboardView = ({view}) => {
     const {microbits, microbitManager} = useContext(MicrobitContext);
-    const [tableReady, setTableReady] = useState(false);
+    const [tableReady, setTableReady] = useState(null);
 
     useEffect(() => {
-        microbitManager.addEventListener('data-ready', () => {
-            setTableReady(true);
-        }, {once: true});
+        function ready(e) {
+            setTableReady(e.detail.device.rows.slice(-1))
+        }
+
+        microbitManager.addEventListener('data-ready', ready);
+        return () => {
+            microbitManager.removeEventListener('data-ready', ready)
+        }
     }, [])
 
     return (

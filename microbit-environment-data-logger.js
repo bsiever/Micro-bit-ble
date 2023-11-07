@@ -3,47 +3,28 @@
 // CC BY-SA 4.0 license: https://creativecommons.org/licenses/by-sa/4.0/
 // Note: License unfit for software; further adaptation not recommended.
 // 2023-09-11 Changed icons and button behavior; added 'pxt-blelog'.
+// 2023-11-03 Removed pause button; added infrequent (manual) input.
 datalogger.onLogFull(function () {
     looping = false
     basic.showString("B")
 })
 input.onButtonPressed(Button.A, function () {
     if (looping) {
-        looping = false
-        basic.showLeds(`
-            . . . . .
-            . # . # .
-            . # . # .
-            . # . # .
-            . . . . .
-            `)
-    } else {
-        looping = true
-        basic.showLeds(`
-            . # . . .
-            . # # . .
-            . # # # .
-            . # # . .
-            . # . . .
-            `)
+        datalogger.log(
+            datalogger.createCV("last press (seconds)", elapsed)
+        )
+        elapsed = 0
     }
 })
 input.onButtonPressed(Button.B, function () {
     if (looping) {
-        basic.showIcon(IconNames.No)
-    } else {
-        basic.showIcon(IconNames.Yes)
-        datalogger.deleteLog()
-        datalogger.setColumnTitles(
-            "temperature (°C)",
-            "light level"
-        )
+        looping = false
     }
+    datalogger.deleteLog()
 })
-let looping = false
+let elapsed = 0
+let looping = true
 blelog.startBLELogService()
-looping = false
-basic.showString("A")
 datalogger.setColumnTitles(
     "temperature (°C)",
     "light level"
@@ -55,6 +36,7 @@ loops.everyInterval(1000, function () {
             datalogger.createCV("temperature (°C)", input.temperature()),
             datalogger.createCV("light level", input.lightLevel())
         )
+        elapsed += 1
         basic.clearScreen()
     }
 })
