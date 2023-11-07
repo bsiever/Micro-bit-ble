@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, createContext } from "react";
 import { MicrobitContext } from "./Dashboard";
 import PlotBar from "./PlotBar";
 import Loadingbar from "./Loadingbar";
@@ -7,6 +7,19 @@ import Graph from "../graph/Graph";
 import { EraseModal } from "./EraseModal";
 import React from 'react';
 import Accordion from './Accordion';
+
+export const TimerContext = createContext();
+
+const TimerContextProvider = ({ children }) => {
+    const [timer, setTimer] = useState(4);
+
+    return (
+        <TimerContext.Provider value={{ timer, setTimer }}>
+            { children}
+        </TimerContext.Provider>
+    );
+};
+
 
 const DashboardView = ({view}) => {
     const {microbits, microbitManager} = useContext(MicrobitContext);
@@ -44,9 +57,11 @@ const DashboardView = ({view}) => {
             {microbits.length>0 ? microbits.map((microbit) => {
                 return <div key={microbit.id}>
                     
-                    <EraseModal microbit={microbit} />
-                    <PlotBar microbit={microbit}/>
-                    {tableReady ? view != 'table' ? <Graph microbit={microbit}/> : <DataTable microbit={microbit}/> : <Loadingbar microbit={microbit}/>}
+                    <TimerContextProvider>
+                        <EraseModal microbit={microbit} />
+                        <PlotBar microbit={microbit} />
+                    </TimerContextProvider>
+                    {tableReady ? view != 'table' ? <Graph microbit={microbit} /> : <DataTable microbit={microbit} /> : <Loadingbar microbit={microbit} />}
                 </div>
             }):
             <div>

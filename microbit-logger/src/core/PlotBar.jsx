@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { uBit, uBitManager } from "../microbit/ubitwebblelog";
 import { MicrobitContext } from "./Dashboard";
-import { EraseModal } from "./EraseModal";
+import { TimerContext } from "./DashboardView";
 
 import editLogo from '../images/editLogo.png';
 import settingsLogo from '../images/settingsLogo.png';
@@ -11,8 +11,9 @@ import disconnectLogo from '../images/disconnectLogo.png';
 import deleteLogo from '../images/deleteLogo.png';
 
 
-export const PlotBar = ({microbit}) => {
-    const[progress, setProgress] = useState(0);
+export const PlotBar = ({ microbit }, {startTimer}) => {
+    const [progress, setProgress] = useState(0);
+    const { setTimer } = useContext(TimerContext);
 
     const {microbitManager} = useContext(MicrobitContext);
 
@@ -43,10 +44,59 @@ export const PlotBar = ({microbit}) => {
     const handleEraseButtonClick = async (event) => {
         const modal = document.querySelector(".modal");
         const overlay = document.querySelector(".overlay");
-
+        setTimer(clearTimer(getDeadTime()));
         modal.classList.remove("hidden");
         overlay.classList.remove("hidden");
     }
+
+
+    const Ref = useRef(null);
+
+    const getTimeRemaining = (e) => {
+        const total = Date.parse(e) - Date.parse(new Date());
+        return {
+            total
+        };
+    }
+
+    const beginTimer = (e) => {
+        let { total }
+            = getTimeRemaining(e);
+        if (total >= 0) {
+            setTimer(
+                total/1000
+            )
+        }
+    }
+
+    const clearTimer = (e) => {
+        setTimer(3);
+
+        if (Ref.current) clearInterval(Ref.current);
+        const id = setInterval(() => {
+            beginTimer(e);
+        }, 50)
+        Ref.current = id;
+    }
+
+    const getDeadTime = () => {
+        let deadline = new Date();
+
+        deadline.setSeconds(deadline.getSeconds() + 4);
+        return deadline;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     useEffect(() => {
@@ -89,7 +139,7 @@ export const PlotBar = ({microbit}) => {
                     <button style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={disconnectLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
-                    <button onClick={(event) => handleEraseButtonClick(event)} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
+                    <button onClick={handleEraseButtonClick} style={{width: '40px', marginTop: '1%', height: '40px', marginRight: '2%', fontSize: '20px'}}>
                         <img src={deleteLogo} style={{width: '40px', height: '40px', marginLeft: '-35%' ,fontSize: '20px'}} />
                     </button>
                 </div>

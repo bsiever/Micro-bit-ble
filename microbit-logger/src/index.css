@@ -58,7 +58,7 @@ code {
   overflow-x: hidden;
 }
 
-th{
+th {
     text-align:center;
 }
 
@@ -141,7 +141,7 @@ table{
     gap: 0.4rem;
     padding: 1.3rem;
     background-color: white;
-    border: 2px solid #ddd;
+    border: 8px solid lightgrey;
     max-width: 30%;
     border-radius: 4px;
     z-index: 2;
@@ -170,8 +170,33 @@ table{
     z-index: 1;
 }
 
+.flex-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.modal-button-delete {
+    color: white;
+    background-color: red;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0;
+    width: 90%;
+    transition-duration: 0.2s;
+}
+
+.modal-button-delete:hover {
+    background-color: darkred;
+    color: white;
+}
+
 .modal-button {
-    width: 50%;
+    color: white;
+    background-color: #555555;
+    margin-right: auto;
+    border: 0;
+    width: 90%;
     transition-duration: 0.2s;
 }
 
