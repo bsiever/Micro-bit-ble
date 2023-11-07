@@ -34,9 +34,10 @@ code {
 }
 
 .tab {
-  padding: 1%;
+  
   font-size: 25px;
-  text-decoration: underline;
+  padding: 10px;
+  margin-right: 2%;
 }
 
 .tab:hover {
@@ -177,4 +178,45 @@ table{
     .modal-button:hover {
         background-color: black;
         color: white;
+    }
+    .accordion {
+      font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      margin: 1rem auto;
+    }
+    
+    .accordion-title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      cursor: pointer;
+      background-color: #d3d3d3;
+      font-size: 25px;
+    }
+    
+    .accordion-title:hover {
+      background-color: #c2c2c2;
+    }
+    
+    .accordion-title,
+    .accordion-content {
+      padding: 1rem;
+    }
+    
+    .accordion-content {
+      background-color: #dfdede;
+      font-size: 22px;
+      font-weight:lighter;
+    }
+    
+    h7 {
+      display: block;
+      font-size: 2em;
+      margin-top: 0.67em;
+      margin-bottom: 0.67em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight:600;
+    
     }
