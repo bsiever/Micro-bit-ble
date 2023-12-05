@@ -6,6 +6,7 @@ import DataTable from "../table/DataTable";
 import DisconnectModal from "./modals/DisconnectModal";
 import EraseModal from "./modals/EraseModal";
 import Graph from "../graph/Graph";
+import EditNameModal from "./modals/EditNameModal";
 
 const DashboardView = ({view}) => {
     const {microbits, microbitManager, updateContext} = useContext(MicrobitContext);
@@ -23,7 +24,7 @@ const DashboardView = ({view}) => {
         }
     }, [])
 
-    const whichModal = (microbit, visible) => {
+    const renderModal = (microbit, visible) => {
         switch(visible) {
             case 'erase':
                 return <EraseModal
@@ -46,6 +47,17 @@ const DashboardView = ({view}) => {
                     }}
                     visible={visible}
                 />
+
+            case 'editName':
+                return <EditNameModal
+                    microbit={microbit}
+                    onClose={() => setModalShown(null)}
+                    onNameChange={(newName) => {
+                        microbit.setLabel(newName)
+                        setModalShown(null);
+                    }}
+                    visible={visible}
+                    />
             default:
                 return <></>
         }
@@ -57,8 +69,7 @@ const DashboardView = ({view}) => {
                 return <div key={microbit.id}>
                     <PlotBar
                         microbit={microbit}
-                        onDisconnectClick={() => setModalShown('disconnect')}
-                        onEraseClick={() => setModalShown('erase')}
+                        onButtonClick={(type) => setModalShown(type)}
                     />
                     {tableReady
                         ? view != 'table'
@@ -66,7 +77,7 @@ const DashboardView = ({view}) => {
                             : <DataTable microbit={microbit}/>
                         : <Loadingbar microbit={microbit}/>
                     }
-                    {whichModal(microbit, modalShown)}
+                    {renderModal(microbit, modalShown)}
                 </div>
             })}
         </div>

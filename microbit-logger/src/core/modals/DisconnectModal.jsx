@@ -1,10 +1,10 @@
 import BaseModal from "./BaseModal";
-import Button from "react-bootstrap/esm/Button";
+import Button from "react-bootstrap/esm/Button"; 
 
 const DisconnectModal = ({microbit, onClose, onDisconnect, visible}) => {
     const modalActions = <>
         <Button variant='secondary' onClick={onClose}>Go Back</Button>
-        <Button variant='primary' onClick={onDisconnect}>Disconnect</Button>
+        <Button variant='danger' onClick={onDisconnect}>Disconnect</Button>
     </>
 
     return (

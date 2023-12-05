@@ -6,19 +6,14 @@ import settingsLogo from '../images/settingsLogo.png';
 import downloadLogo from '../images/downloadLogo.png';
 import disconnectLogo from '../images/disconnectLogo.png';
 import deleteLogo from '../images/deleteLogo.png';
-import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
-import Tooltip from 'react-bootstrap/Tooltip';
 import UsableTooltip from "./UsableTooltip";
 
 
-export const PlotBar = ({microbit, onDisconnectClick, onEraseClick}) => {
+export const PlotBar = ({microbit, onButtonClick}) => {
     const[progress, setProgress] = useState(0);
 
     const {microbitManager} = useContext(MicrobitContext);
 
-    const handleEditButtonClick = async (event) => {
-        // edit button functionality
-    }
     const handleDownloadButtonClick = async (event) => {
         const file = new File([microbit.getCSV()], 'uBitData.csv', {
             type: 'text/csv'
@@ -72,26 +67,26 @@ export const PlotBar = ({microbit, onDisconnectClick, onEraseClick}) => {
     return (
         <div id="plot-bar">
             <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
-                <div className="micro-bit-name">{microbit.name}</div>
+                <div className="micro-bit-name">{microbit.label ?? microbit.name}</div>
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                    {/* <button onClick={(event) => handleEditButtonClick(event)} className='actionButton'>
+                    <button onClick={() => onButtonClick('editName')} className='actionButton'>
                         <img src={editLogo} />
                     </button>
                     <button className='actionButton'>
                         <img src={settingsLogo}  />
-                    </button> */}
+                    </button>
                     <UsableTooltip title='Download CSV' placement='top'>
                         <button onClick={(event) => handleDownloadButtonClick(event)} className='actionButton'>
                             <img src={downloadLogo} />
                         </button>
                     </UsableTooltip>
                     <UsableTooltip title='Disconnect Bluetooth' placement='top'>
-                        <button onClick={onDisconnectClick} className='actionButton'>
+                        <button onClick={() => onButtonClick('disconnect')} className='actionButton'>
                             <img src={disconnectLogo} />
                         </button>
                     </UsableTooltip>
                     <UsableTooltip title='Clear micro:bit Data' placement='top'>
-                        <button onClick={onEraseClick} className='actionButton'>
+                        <button onClick={() => onButtonClick('erase')} className='actionButton'>
                             <img src={deleteLogo} />
                         </button>
                     </UsableTooltip>
