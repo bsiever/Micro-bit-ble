@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useState, useEffect, useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { MicrobitContext } from "./Dashboard";
 
 import editLogo from '../images/editLogo.png';
@@ -12,7 +11,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import UsableTooltip from "./UsableTooltip";
 
 
-export const PlotBar = ({microbit, onEraseClick}) => {
+export const PlotBar = ({microbit, onDisconnectClick, onEraseClick}) => {
     const[progress, setProgress] = useState(0);
 
     const {microbitManager} = useContext(MicrobitContext);
@@ -43,11 +42,16 @@ export const PlotBar = ({microbit, onEraseClick}) => {
 
 
     useEffect(() => {
-        microbitManager.addEventListener('log-usage', (usage) => {
-            if(usage.detail.device === microbit) {
-                setProgress(usage.detail.percent);
+        function usage(e) {
+            if(e.detail.device === microbit) {
+                setProgress(e.detail.percent);
             }
-        })
+        }
+
+        microbitManager.addEventListener('log-usage', usage);
+        return () => {
+            microbitManager.removeEventListener('log-usage', usage);
+        }
     }, []);
 
     const getColor = () => {
@@ -76,16 +80,21 @@ export const PlotBar = ({microbit, onEraseClick}) => {
                     <button className='actionButton'>
                         <img src={settingsLogo}  />
                     </button> */}
-                    <UsableTooltip title='Download CSV' placement='top'><button  onClick={(event) => handleDownloadButtonClick(event)} className='actionButton'>
-                        <img src={downloadLogo} />
-                    </button></UsableTooltip>
-                    {/* <button className='actionButton'>
-                        <img src={disconnectLogo} />
-                    </button> */}
-                    <UsableTooltip title='Clear micro:bit Data' placement='top'><button onClick={onEraseClick} className='actionButton'>
-                        <img src={deleteLogo} />
-                    </button></UsableTooltip>
-                    
+                    <UsableTooltip title='Download CSV' placement='top'>
+                        <button onClick={(event) => handleDownloadButtonClick(event)} className='actionButton'>
+                            <img src={downloadLogo} />
+                        </button>
+                    </UsableTooltip>
+                    <UsableTooltip title='Disconnect Bluetooth' placement='top'>
+                        <button onClick={onDisconnectClick} className='actionButton'>
+                            <img src={disconnectLogo} />
+                        </button>
+                    </UsableTooltip>
+                    <UsableTooltip title='Clear micro:bit Data' placement='top'>
+                        <button onClick={onEraseClick} className='actionButton'>
+                            <img src={deleteLogo} />
+                        </button>
+                    </UsableTooltip>
                 </div>
                 <div className="memory-bar">
                     <div className="memory-bar-fill" style={{ width: progress+'%', backgroundColor: getColor(), borderRadius: "10px" }}></div>

@@ -4,6 +4,9 @@ import Navbar from "./Navbar";
 import { uBitManager } from "../microbit/ubitwebblelog";
 import DashboardView from "./DashboardView";
 import Landing from "./Landing";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import ConnectErrorToast from "./toasts/ConnectErrorToast";
+import DisconnectToast from "./toasts/DisconnectToast";
 
 export const MicrobitContext = React.createContext({})
 
@@ -16,6 +19,10 @@ const Dashboard = () => {
     const mediaQuery = window.matchMedia("(min-width: 600px)");
     // Adapt to current display width
     const [adaptive, setAdaptive] = useState(mediaQuery.matches);
+    // Dismissal status of connection error notification
+    const [connectError, setConnectError] = useState(false)
+    // Name of most recently disconnected micro:bit
+    const [disconnect, setDisconnect] = useState(null);
 
     const microbitManager = useRef(new uBitManager());
     const [view, setView] = useState("graph");
@@ -33,11 +40,19 @@ const Dashboard = () => {
     }, [mediaQuery])
 
     useEffect(() => {
-        if(microbitManager.current) {
-            microbitManager.current.addEventListener('connect-error', () => {
-                // add toast to display error nicely, for now just print to console
-                console.log('requestDevice chooser was closed');
-            })
+        function showConnectError(e) {
+            setConnectError(true)
+        }
+
+        function showDisconnect(e) {
+            setDisconnect(e.detail.device.name)
+        }
+
+        context.microbitManager.addEventListener('connect-error', showConnectError)
+        context.microbitManager.addEventListener('disconnected', showDisconnect)
+        return () => {
+            context.microbitManager.removeEventListener('connect-error', showConnectError)
+            context.microbitManager.removeEventListener('disconnected', showDisconnect)
         }
     }, [microbitManager.current])
 
@@ -53,10 +68,20 @@ const Dashboard = () => {
 
     return (
         <MicrobitContext.Provider value={context}>
-        <div id='dashboard'>
-            <Navbar adaptive={adaptive} setView={setView} onConnectClicked={context.microbits.length > 0 && handleConnectMicrobitButton}/>
-            {context.microbits.length === 0 ? <Landing onConnectClicked={handleConnectMicrobitButton}/> : <DashboardView view={view}/>}
-        </div>
+            <ToastContainer position={adaptive ? 'bottom-center' : 'top-center'}>
+                {connectError && <ConnectErrorToast onClose={() => setConnectError(false)}/>}
+                {disconnect && context.microbits.length > 0 &&
+                    // TODO: Support multiple persistent disconnection notices
+                    <DisconnectToast uBit={disconnect} onClose={() => setDisconnect(null)}/>
+                }
+            </ToastContainer>
+            <div id='dashboard'>
+                <Navbar adaptive={adaptive} setView={setView} onConnectClicked={handleConnectMicrobitButton}/>
+                {context.microbits.length === 0
+                    ? <Landing adaptive={adaptive} onConnectClicked={handleConnectMicrobitButton}/>
+                    : <DashboardView view={view}/>
+                }
+            </div>
         </MicrobitContext.Provider>
     )
 }

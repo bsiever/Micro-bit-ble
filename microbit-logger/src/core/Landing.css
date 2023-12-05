@@ -1,0 +1,35 @@
+#landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  padding: 5vh 8vw 5vh 8vw;
+  font-size: 1.75em;
+  text-align: center;
+  overflow: hidden;
+}
+
+#landing-wide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  width: 50%;
+  padding: 5vh 8vw 5vh 8vw;
+  max-height: 75vh;
+  background-color: #F8F8F8;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-size: 1.75em;
+  text-align: center;
+  overflow: hidden;
+}
+
+#landing-wide > button {
+  font-size: xx-large;
+  font-weight: bold;
+  margin-bottom: 1vh;
+  transition: scale .2s;
+}
