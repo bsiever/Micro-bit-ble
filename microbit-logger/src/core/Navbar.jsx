@@ -12,7 +12,7 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
 
     return (
         <>
-            {adaptive ? (<div id='navbar-wide'>
+            {adaptive ? (<div id='navbar'>
                 <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '50%'}}>
                     <div style={{width: '80px', height: '80px',  marginRight: '2%'}}><img src={icon} style={{width: '100%', height: '100%'}}/></div>
                     <div style={{display: 'flex', width: '50%'}}>
@@ -21,7 +21,7 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
                     </div>
                 </div>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '50%'}}>
-                    {microbits.length > 0 && <Button onClick={onConnectClicked} variant='primary' style={{border: '2px solid darkblue', width: '5vw', height: '5vh', fontSize: '1.2em', marginRight: '1.5vw'}}>Connect</Button>}
+                    {microbits.length > 0 && <Button onClick={onConnectClicked} variant='primary' style={{border: '2px solid darkblue', width: '10rem', height: '4rem', fontSize: '1.2em', marginRight: '2rem'}}>Connect</Button>}
                     <UsableTooltip title='Help' placement='bottom'><button className="helpButton" onClick={() => setHelpVisible(true)}>?</button></UsableTooltip>
                 </div>
             </div>) : (

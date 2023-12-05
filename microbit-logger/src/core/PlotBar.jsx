@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { MicrobitContext } from "./Dashboard";
 
-import editLogo from '../images/editLogo.png';
-import settingsLogo from '../images/settingsLogo.png';
-import downloadLogo from '../images/downloadLogo.png';
-import disconnectLogo from '../images/disconnectLogo.png';
-import deleteLogo from '../images/deleteLogo.png';
 import UsableTooltip from "./UsableTooltip";
 
 
@@ -66,38 +61,33 @@ export const PlotBar = ({microbit, onButtonClick}) => {
 
     return (
         <div id="plot-bar">
-            <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
-                <div className="micro-bit-name">{microbit.label ?? microbit.name}</div>
-                <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <button onClick={() => onButtonClick('editName')} className='actionButton'>
-                        <img src={editLogo} />
-                    </button>
-                    <button className='actionButton'>
-                        <img src={settingsLogo}  />
-                    </button>
-                    <UsableTooltip title='Download CSV' placement='top'>
-                        <button onClick={(event) => handleDownloadButtonClick(event)} className='actionButton'>
-                            <img src={downloadLogo} />
-                        </button>
-                    </UsableTooltip>
-                    <UsableTooltip title='Disconnect Bluetooth' placement='top'>
-                        <button onClick={() => onButtonClick('disconnect')} className='actionButton'>
-                            <img src={disconnectLogo} />
-                        </button>
-                    </UsableTooltip>
-                    <UsableTooltip title='Clear micro:bit Data' placement='top'>
-                        <button onClick={() => onButtonClick('erase')} className='actionButton'>
-                            <img src={deleteLogo} />
-                        </button>
-                    </UsableTooltip>
+            <div style={{display: 'flex', alignItems: 'center', paddingLeft: '1%', width: '12%', height: '100%', fontSize: '1.75rem'}}>
+                <div style={{flexGrow: 1, paddingRight: '2.5%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{microbit.label ?? microbit.name}</div>
+                <div style={{marginRight: '10%'}}><IconButton icon='edit_square' onClick={() => onButtonClick('editName')} tooltip="Edit Name"/></div>
+            </div>
+            <div style={{display: 'flex', alignItems: 'center', width: '60%', height: '100%'}}>
+                <div class='memoryBar' style={{flexGrow: 1}}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100%', borderRadius: '10px 0 0 10px', width: `${progress}%`, backgroundColor: getColor()}}/>
+                    <div style={{position: 'relative', left: '50%', transform: `translateX(-50%)`}}>{progress}% memory full</div>
                 </div>
-                <div className="memory-bar">
-                    <div className="memory-bar-fill" style={{ width: progress+'%', backgroundColor: getColor(), borderRadius: "10px" }}></div>
-                    <div className="memory-bar-label" style={{float: 'right', marginTop: '4px'}}>{progress}% memory used</div>
+                <div style={{display: 'flex', justifyContent: 'space-around', margin: '0 1% 0 3%', width: '10rem'}}>
+                    <IconButton icon='download' color='#1da121' onClick={() => handleDownloadButtonClick()} tooltip='Download CSV'/>
+                    <IconButton icon='delete' color='darkred' onClick={() => onButtonClick('erase')} tooltip='Clear micro:bit Data'/>
+                    <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
                 </div>
             </div>
         </div>
     )
 }
+
+const IconButton = ({icon, color, onClick, tooltip}) => {
+    return (
+        <UsableTooltip title={tooltip}>
+            <div className='iconButton' onClick={onClick} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', color: color ?? '#2f73e0'}}>
+                <span class='material-symbols-outlined' style={{fontSize: '2rem'}}>{icon}</span>
+            </div>
+        </UsableTooltip>
+    )
+}   
 
 export default PlotBar;

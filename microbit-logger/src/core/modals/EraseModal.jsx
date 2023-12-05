@@ -33,9 +33,7 @@ const EraseModal = ({microbit, onClose, onDelete, visible}) => {
 
     return (
         <BaseModal title={`Clear Microbit Data - ${microbit.name}`} visible={visible} actions={modalActions}>
-            <center>
             You are about to erase all data from the following device's memory:<br/><br/><span style={{fontWeight: 'bold'}}>{microbit.name}</span><br/><br/>Are you sure you want to continue?
-            </center>
         </BaseModal>
     )
 }

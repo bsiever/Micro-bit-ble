@@ -56,6 +56,10 @@ const DashboardView = ({view}) => {
                         microbit.setLabel(newName)
                         setModalShown(null);
                     }}
+                    onReset={() => {
+                        microbit.setLabel(null);
+                        setModalShown(null);
+                    }}
                     visible={visible}
                     />
             default:
@@ -64,19 +68,21 @@ const DashboardView = ({view}) => {
     }
 
     return (
-        <div id='display' style={{overflowY: view === 'graph' ? 'hidden' : 'visible'}}>
+        <div id='display'>
             {microbits.map((microbit) => {
                 return <div key={microbit.id}>
                     <PlotBar
                         microbit={microbit}
                         onButtonClick={(type) => setModalShown(type)}
                     />
+                    <div style={{height: '64vh', overflowY: view == 'table' ? 'scroll' : 'hidden', overflow: 'hidden'}}>
                     {tableReady
                         ? view != 'table'
                             ? <Graph microbit={microbit}/>
                             : <DataTable microbit={microbit}/>
                         : <Loadingbar microbit={microbit}/>
                     }
+                    </div>
                     {renderModal(microbit, modalShown)}
                 </div>
             })}

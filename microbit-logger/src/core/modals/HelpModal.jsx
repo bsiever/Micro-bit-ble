@@ -16,7 +16,7 @@ const HelpModal = ({visible, setVisible}) => {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey='1'>
-                        <Accordion.Header>Basic Functions</Accordion.Header>
+                        <Accordion.Header>Basic Usage</Accordion.Header>
                         <Accordion.Body>
                             Click the 'Connect' button on the landing page to connect a micro:bit. The data that is already stored on the micro:bit will be loaded,
                             and any data collected while connected will be added to the graph and table.<br/><br/>

@@ -3,11 +3,12 @@ import BaseModal from "./BaseModal";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 
-const EditNameModal = ({microbit, visible, onClose, onNameChange}) => {
+const EditNameModal = ({microbit, visible, onClose, onNameChange, onReset}) => {
     const [newMicrobitName, setNewMicrobitName] = useState("");
 
     const modalActions = <>
         <Button variant='secondary' onClick={onClose}>Close</Button>
+        <Button variant='danger' onClick={onReset}>Reset Name</Button>
         <Button variant='primary' onClick={() => onNameChange(newMicrobitName)} disabled={newMicrobitName.trim().length == 0}>Change Name</Button>
     </>
 

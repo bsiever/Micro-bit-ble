@@ -1,9 +1,6 @@
 import Table from "react-bootstrap/Table";
 
 const DataTable = ({microbit}) => {
-    console.log(microbit);
-
-
         const headers = microbit.getHeaders();
         const renderHeaders = headers.map((item) =>
                                         <th >{item}</th>);
@@ -14,8 +11,8 @@ const DataTable = ({microbit}) => {
 
         return (
 		<div className='table'>
-			<Table>
-                <tr>{renderHeaders}</tr>
+			<Table bordered style={{fontSize: '1.25em'}}>
+                <tr style={{borderBottom: '1px solid black'}}>{renderHeaders}</tr>
                 {rows.map((value, _) => {
                     const displayedValues = [value[0], ...value.slice(2, value.length)]; // filters out reboot time value
                     const reboot = value[1] === 'true';

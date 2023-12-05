@@ -16,9 +16,9 @@ function Loadingbar({microbit}) {
   }, []);
 
   return (
-    <div>
+    <div style={{padding: '3rem 3rem 0 3rem'}}>
       {progress < 100 ? (
-        <div className="loading-bar" style={{ width: '100%', height: '20px', backgroundColor: 'darkgray', position: 'relative' }}>
+        <div className="loading-bar" style={{ width: '100%', height: '35px', backgroundColor: 'darkgray', position: 'relative' }}>
           <div className="progress-bar" style={{ width: `${progress}%`, height: '100%', backgroundColor: 'aqua', position: 'relative', transition: 'width .2s' }} />
           <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Loading data... - {progress}%</div>
         </div>
