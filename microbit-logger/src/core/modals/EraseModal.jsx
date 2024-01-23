@@ -27,7 +27,7 @@ const EraseModal = ({microbit, onClose, onDelete, visible}) => {
     }, [countdown])
 
     const modalActions = useMemo(() => <>
-        <Button variant='secondary' onClick={onClose}>Close</Button>
+        <Button variant='secondary' onClick={onClose}>Go Back</Button>
         <Button variant='danger' disabled={countdown !== 0} onClick={onDelete}>{countdown != 0 ? countdown : 'Delete'}</Button>
     </>, [countdown])
 
