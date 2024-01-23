@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 const BaseModal = ({title, visible, setVisible, actions, children}) => {
 
     const defaultActions = (<>
-        <Button onClick={() => setVisible && setVisible(false)} variant='secondary'>Close</Button>
+        <Button onClick={() => setVisible && setVisible(false)} variant='secondary'>Cancel</Button>
     </>);
 
     return (

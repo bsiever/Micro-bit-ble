@@ -3,7 +3,7 @@ import Button from "react-bootstrap/esm/Button";
 
 const DisconnectModal = ({microbit, onClose, onDisconnect, visible}) => {
     const modalActions = <>
-        <Button variant='secondary' onClick={onClose}>Go Back</Button>
+        <Button variant='secondary' onClick={onClose}>Cancel</Button>
         <Button variant='danger' onClick={onDisconnect}>Disconnect</Button>
     </>
 

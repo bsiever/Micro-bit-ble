@@ -7,8 +7,8 @@ const EditNameModal = ({microbit, visible, onClose, onNameChange, onReset}) => {
     const [newMicrobitName, setNewMicrobitName] = useState("");
 
     const modalActions = <>
-        <Button variant='secondary' onClick={onClose}>Go Back</Button>
-        <Button variant='success' onClick={onReset}>Default Name</Button>
+        <Button variant='secondary' onClick={onClose}>Cancel</Button>
+        <Button onClick={onReset} style={{backgroundColor: '#de720d', borderColor: '#de720d'}}>Default Name</Button>
         <Button variant='primary' onClick={() => onNameChange(newMicrobitName)} disabled={newMicrobitName.trim().length == 0}>Change Name</Button>
     </>
 

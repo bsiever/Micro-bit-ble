@@ -73,7 +73,7 @@ const Graph = ({microbit}) => {
     return (
         <>
             <div id="legend"></div>
-            <div id="graph" style={{width: '85vw', height: '60vh'}}></div>
+            <div id="graph" style={{width: '100%', height: '50rem'}}></div>
         </>
     )
 };

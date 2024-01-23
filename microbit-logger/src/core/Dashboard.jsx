@@ -26,7 +26,7 @@ const Dashboard = () => {
 
     const microbitManager = useRef(new uBitManager());
     const [view, setView] = useState("graph");
-    const [context, dispatch] = useReducer(microbitContextReducer, {microbits: [], microbitManager: microbitManager.current, updateContext: (object) => dispatch(object)})
+    const [context, dispatch] = useReducer(microbitContextReducer, {adaptive, microbits: [], microbitManager: microbitManager.current, updateContext: (object) => dispatch(object)})
 
     useEffect(() => {
         function resize(e) {
@@ -79,7 +79,7 @@ const Dashboard = () => {
                 <Navbar adaptive={adaptive} setView={setView} onConnectClicked={handleConnectMicrobitButton}/>
                 {context.microbits.length === 0
                     ? <Landing adaptive={adaptive} onConnectClicked={handleConnectMicrobitButton}/>
-                    : <DashboardView view={view}/>
+                    : <DashboardView adaptive={adaptive} view={view}/>
                 }
             </div>
         </MicrobitContext.Provider>

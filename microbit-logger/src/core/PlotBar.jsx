@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { MicrobitContext } from "./Dashboard";
 
 import UsableTooltip from "./UsableTooltip";
+import { Dropdown } from "react-bootstrap";
 
 
-export const PlotBar = ({microbit, onButtonClick}) => {
+export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
     const[progress, setProgress] = useState(0);
 
     const {microbitManager} = useContext(MicrobitContext);
@@ -61,23 +62,49 @@ export const PlotBar = ({microbit, onButtonClick}) => {
 
     return (
         <div id="plot-bar">
-            <div style={{display: 'flex', alignItems: 'center', paddingLeft: '1%', width: '12%', height: '100%', fontSize: '1.75rem'}}>
-                <div style={{flexGrow: 1, paddingRight: '2.5%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{microbit.label ?? microbit.name}</div>
-                <div style={{marginRight: '10%'}}><IconButton icon='edit_square' onClick={() => onButtonClick('editName')} tooltip="Edit Name"/></div>
+            <div style={{display: 'flex', alignItems: 'center', paddingLeft: '1%', width: '40%', height: '100%', fontSize: '1.75rem'}}>
+                <div style={{paddingRight: '2.5%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{microbit.label ?? microbit.name}</div>
+                {adaptive && <div style={{marginRight: '10%'}}><IconButton icon='edit_square' onClick={() => onButtonClick('editName')} tooltip="Edit Name"/></div>}
             </div>
             <div style={{display: 'flex', alignItems: 'center', width: '60%', height: '100%'}}>
-                <div class='memoryBar' style={{flexGrow: 1}}>
+                <div class='memoryBar' style={{flexGrow: 1, minWidth: '25%'}}>
                     <div style={{ display: 'flex', alignItems: 'center', height: '100%', borderRadius: '10px 0 0 10px', width: `${progress}%`, backgroundColor: getColor()}}/>
-                    <div style={{position: 'relative', left: '50%', transform: `translateX(-50%)`}}>{progress}% memory full</div>
+                    <div style={{position: 'relative', left: '50%', transform: `translateX(-50%)`}}>{`${progress}% ${adaptive ? 'memory full' : ''}`}</div>
                 </div>
-                <div style={{display: 'flex', justifyContent: 'space-around', margin: '0 1% 0 3%', width: '10rem'}}>
-                    <IconButton icon='download' color='#1da121' onClick={() => handleDownloadButtonClick()} tooltip='Download CSV'/>
-                    <IconButton icon='delete' color='darkred' onClick={() => onButtonClick('erase')} tooltip='Clear micro:bit Data'/>
-                    <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
-                </div>
+                {adaptive ? (
+                    <div style={{display: 'flex', justifyContent: 'space-around', margin: '0 1% 0 3%', width: '10rem'}}>
+                        <IconButton icon='download' color='#1da121' onClick={() => handleDownloadButtonClick()} tooltip='Download CSV'/>
+                        <IconButton icon='delete' color='darkred' onClick={() => onButtonClick('erase')} tooltip='Clear micro:bit Data'/>
+                        <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
+                    </div>
+                ) : <Dropdown style={{marginLeft: '1rem'}}>
+                    <Dropdown.Toggle variant='primary'>Actions</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => onButtonClick('editName')} class='dropdownOption'>
+                            <Icon icon='edit_square'/>
+                            Edit Name
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleDownloadButtonClick()} class='dropdownOption'>
+                            <Icon icon='download'/>
+                            Download CSV
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => onButtonClick('erase')} class='dropdownOption'>
+                            <Icon icon='delete'/>
+                            Clear micro:bit Data
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => onButtonClick('disconnect')} class='dropdownOption'>
+                            <Icon icon='cancel'/>
+                            Disconnect micro:bit
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown>}
             </div>
         </div>
     )
+}
+
+const Icon = ({icon, color}) => {
+    return <span class='material-symbols-outlined' style={{position: 'relative', fontSize: '1rem', transform: 'translateY(10%)', marginRight: '.25rem', color: color ?? "black"}}>{icon}</span>;
 }
 
 const IconButton = ({icon, color, onClick, tooltip}) => {

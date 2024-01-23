@@ -8,7 +8,7 @@ import EraseModal from "./modals/EraseModal";
 import Graph from "../graph/Graph";
 import EditNameModal from "./modals/EditNameModal";
 
-const DashboardView = ({view}) => {
+const DashboardView = ({adaptive, view}) => {
     const {microbits, microbitManager, updateContext} = useContext(MicrobitContext);
     const [tableReady, setTableReady] = useState(null);
     const [modalShown, setModalShown] = useState(null);
@@ -72,10 +72,11 @@ const DashboardView = ({view}) => {
             {microbits.map((microbit) => {
                 return <div key={microbit.id}>
                     <PlotBar
+                        adaptive={adaptive}
                         microbit={microbit}
                         onButtonClick={(type) => setModalShown(type)}
                     />
-                    <div style={{height: '64vh', overflowY: view == 'table' ? 'scroll' : 'hidden', overflow: 'hidden'}}>
+                    <div style={{height: '58rem', overflowY: view === 'table' ? 'scroll' : 'hidden'}}>
                     {tableReady
                         ? view != 'table'
                             ? <Graph microbit={microbit}/>

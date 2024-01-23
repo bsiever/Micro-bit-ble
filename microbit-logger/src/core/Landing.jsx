@@ -18,7 +18,7 @@ const Landing = ({adaptive, onConnectClicked}) => {
 
             {compatible ? (<>
             <p>To get started and connect a micro:bit, tap the Connect button below.</p>
-            {adaptive ? <Button onClick={onConnectClicked} variant='primary' style={{border: '2px solid darkblue'}}>Connect</Button> : <></>}
+            {adaptive ? <Button onClick={onConnectClicked} variant='primary' size="lg">Connect</Button> : <></>}
             </>
             ) : compatible === false ?
             <p style={{color: '#FE4747', fontWeight: 'bold'}}>This browser is not compatible with WebBluetooth. Please reference <span style={{textDecoration: 'underline'}}>this page</span> for browsers which are compatible.</p> : <></>}
