@@ -26,7 +26,7 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
                 </div>
             </div>) : (
             <>
-                <button className="helpButton" style={{position: 'absolute'}} onClick={() => setHelpVisible(true)}>?</button>
+                <button className="helpButton" style={{position: 'absolute', alignSelf: 'end', right: '2.5%', top: ".5%"}} onClick={() => setHelpVisible(true)}>?</button>
                 <div id='navbar'>
                     <div style={{display: 'flex', alignItems: 'center', fontSize: '25px', width: '100%'}}>
                         <div style={{display: 'flex', justifyContent: 'space-around', width: '100%'}}>

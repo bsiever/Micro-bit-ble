@@ -11,7 +11,7 @@ const DataTable = ({microbit}) => {
 
         return (
 		<div className='table'>
-			<Table bordered style={{fontSize: '1.25em', height: '50rem', overflowY: 'scroll'}}>
+			<Table bordered style={{fontSize: '1.25em', height: '100%', overflowY: 'scroll'}}>
                 <tr style={{borderBottom: '1px solid black'}}>{renderHeaders}</tr>
                 {rows.map((value, _) => {
                     const displayedValues = [value[0], ...value.slice(2, value.length)]; // filters out reboot time value

@@ -78,8 +78,8 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                         <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
                     </div>
                 ) : <Dropdown style={{marginLeft: '1rem'}}>
-                    <Dropdown.Toggle variant='primary'>Actions</Dropdown.Toggle>
-                    <Dropdown.Menu>
+                    <Dropdown.Toggle as={CustomDropdownToggle}/>
+                    <Dropdown.Menu align='end'>
                         <Dropdown.Item onClick={() => onButtonClick('editName')} class='dropdownOption'>
                             <Icon icon='edit_square'/>
                             Edit Name
@@ -103,8 +103,14 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
     )
 }
 
-const Icon = ({icon, color}) => {
-    return <span class='material-symbols-outlined' style={{position: 'relative', fontSize: '1rem', transform: 'translateY(10%)', marginRight: '.25rem', color: color ?? "black"}}>{icon}</span>;
+const CustomDropdownToggle = React.forwardRef(({onClick}, ref) => (
+    <div style={{border: '1px solid black', borderRadius: '12.5%'}} onClick={onClick} ref={ref}>
+        <IconButton icon='more_horiz' color='black' tooltip="Actions"/>
+    </div>
+))
+
+const Icon = ({icon, color, size}) => {
+    return <span class='material-symbols-outlined' style={{position: 'relative', fontSize: size ?? '1rem', transform: 'translateY(10%)', marginRight: '.25rem', color: color ?? "black"}}>{icon}</span>;
 }
 
 const IconButton = ({icon, color, onClick, tooltip}) => {
