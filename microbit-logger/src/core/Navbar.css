@@ -19,9 +19,9 @@
 
 @media screen and (max-width: 600px) {
   #navbar {
-    position: absolute;
+    position: relative;
     z-index: 3;
-    bottom: 0;
+    top: 89%;
     box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
@@ -31,6 +31,10 @@
 
   #dashboard {
     margin-bottom: 12rem !important;
+  }
+
+  #display {
+    margin: 0;
   }
 }
 

@@ -9,17 +9,21 @@ const GraphDisplay = ({microbit}) => {
     const graphData = useGraphData(microbit);
 
     useEffect(() => {
-        new Dygraph(document.getElementById('testGraph'),
-            graphData[0], {labels: ['Time (seconds)', microbit.headers[1]], legend: 'always'});
-        
-        new Dygraph(document.getElementById('testGraph2'),
-            graphData[1], {labels: ['Time (seconds)', microbit.headers[2]], legend: 'always'});
+        let reboots = [];
+
+        graphData.forEach((graph, index) => {            
+            new Dygraph(document.getElementById(`graph_${index}`), graph, {labels: ['Time (seconds)', microbit.headers[index+1]], legend: 'never'})
+        });
     }, [graphData])
 
-    return <>
-        <div id='testGraph' style={{width: '100%', height: '67vh', border: '1px solid black', margin: "5 5"}}/>
-        <div id='testGraph2' style={{width: '100%', height: '67vh', border: '1px solid black', margin: "5 5"}}/>
-    </>;
+    return <div style={{padding: '2rem'}}>
+        {graphData.map((_, index) => {
+            return (<>
+                <h3 style={{width: '100%', textAlign: 'center'}}>{microbit.headers[index+1]}</h3>
+                <div id={`graph_${index}`} style={{width: '100%', height: '40rem', marginBottom: '2rem', border: '1px solid black'}}/>
+            </>)
+        })}
+    </div>;
 }
 
 export default GraphDisplay;
