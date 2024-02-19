@@ -7,7 +7,6 @@ import DisconnectModal from "./modals/DisconnectModal";
 import EraseModal from "./modals/EraseModal";
 import Graph from "../graph/Graph";
 import EditNameModal from "./modals/EditNameModal";
-import GraphDisplay from "../graph/GraphDisplay";
 
 const DashboardView = ({adaptive, view}) => {
     const {microbits, microbitManager, updateContext} = useContext(MicrobitContext);
@@ -77,7 +76,7 @@ const DashboardView = ({adaptive, view}) => {
                     <div style={{height: '58rem', overflowY: 'scroll'}}>
                     {tableReady
                         ? view != 'table'
-                            ? <GraphDisplay microbit={microbit}/>
+                            ? <Graph microbit={microbit}/>
                             : <DataTable microbit={microbit}/>
                         : <Loadingbar microbit={microbit}/>
                     }
