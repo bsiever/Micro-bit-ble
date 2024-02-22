@@ -18,25 +18,58 @@ const HelpModal = ({visible, setVisible}) => {
                     <Accordion.Item eventKey='1'>
                         <Accordion.Header>Basic Usage</Accordion.Header>
                         <Accordion.Body>
+                            <b>Connecting a Micro:bit</b><br/>
                             Click the 'Connect' button on the landing page to connect a micro:bit. The data that is already stored on the micro:bit will be loaded,
                             and any data collected while connected will be added to the graph and table.<br/><br/>
+                            <b>Switching Views</b><br/>
+                            Selecting "Graphs" or "Data" will switch you to their respective views. The "Graph" view will allow you to view your data
+                            on a line graph. The "Data" view shows your data organized into a table.<br/><br/>
+                            <b>Plot Options</b><br/>
+                            You can manage which time series are shown by selecting or deselecting each series.<br/><br/>
+                            <b>Micro:bit Memory Usage</b><br/>
                             The micro:bit's memory usage is visible above the plot. To clear the data on the micro:bit, click the 'Clear' button to the left of the memory usage
                             and confirm that the data is safe to clear.<br/><br/>
+                            <b>Accidental Disconnection</b><br/>
                             If for some reason the micro:bit is disconnected while using this app, refresh the page, reconnect the micro:bit, and no data will be lost.
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey='2'>
-                        <Accordion.Header>micro:bit Reboot Indicators and Time</Accordion.Header>
+                        <Accordion.Header>Graph View</Accordion.Header>
                         <Accordion.Body>
-                            Reboots are indicated on the plot by a vertical bar. They are indicated on the table by a horizontal bar.<br/><br/>
-                            The micro:bit does not record the passage of time while it is turned off. This means that time data is only available for data collected since it
-                            was turned on last. When a reboot occurs, the new time will be dated based on the time of the device being used.
+                            <b>Reboots</b><br/>
+                            Reboots are indicated by solid black vertical bars.<br/><br/>
+                            <b>Zooming on Desktop</b><br/>
+                            Click and drag over the portion of the graph you would like to zoom to. Zooming is possible both vertically and horizontally. 
+                            To zoom out, double click anywhere on the graph.<br/><br/>
+                            <b>Zooming on Mobile</b><br/>
+                            Touch two fingers on the graph and spread them apart to zoom in. Touch two fingers on the graph and bring them closer to zoom 
+                            out. Double tapping the graph will fully zoom out.<br/><br/>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="3">
+                        <Accordion.Header>Data View</Accordion.Header>
+                        <Accordion.Body>
+                            <b>Reboots</b><br/>
+                            Reboots are indicated by solid gray horizontal lines.<br/><br/>
+                            <b>Time (local)</b><br/>
+                            Micro:bits do not have the ability to store local time. Local time is calculated with how long ago the data entry was taken and 
+                            your device's time. Because micro:bits have no way of knowing how long they have been shut off for, local time is not available 
+                            for an data recorded before the last reboot.<br/><br/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="4">
+                        <Accordion.Header>Managing Multiple Micro:bits</Accordion.Header>
+                        <Accordion.Body>
+                            <b>Disconnecting a Micro:bit</b><br/>
+                            Clicking disconnect will disconnect the currently listed micro:bit.<br/><br/>
+                            <b>Switching between Micro:bits (not currently implemented)</b><br/>
+                            Open the dropdown menu near your micro:bit's name and select or deselect which micro:bits you want to be displayed.<br/><br/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="5">
                         <Accordion.Header>Exporting Data</Accordion.Header>
                         <Accordion.Body>
-                            The table hides some rows and colums from the table which provide information about reboots. To download the data, use the 'Download CSV' button
+                            To download the data, use the 'Download CSV' button
                             in the menu above the data table or graph, which will procede to download all of the micro:bit data in .csv format (Comma-Seperated Values). This
                             file can be opened by any spreadsheet viewer.
                         </Accordion.Body>
