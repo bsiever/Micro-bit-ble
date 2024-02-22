@@ -36,6 +36,7 @@ const microbitContextReducer = (state: MicrobitContextType, action: MicrobitCont
             }))
 
             newState.microbits = [...state.microbits, {id: microbit.id, uBit: microbit, columns}]
+            console.log(newState.microbits);
         }
     } else if(actionType === MicrobitContextAction.DISCONNECT_MICROBIT) {
         newState.microbits.findIndex((microbit) => microbit.id === data.id) != -1 
@@ -53,7 +54,6 @@ const microbitContextReducer = (state: MicrobitContextType, action: MicrobitCont
         }
     } else if(actionType === MicrobitContextAction.UPDATE_MICROBIT_DISPLAY) {
         const microbitObject = data as Microbit;
-        console.log(microbitObject);
 
         // deletes and replaces the existing microbit object with the new one passed in
         newState.microbits.splice(state.microbits.findIndex((microbit) => microbit.id === microbitObject.id), 1, microbitObject);
