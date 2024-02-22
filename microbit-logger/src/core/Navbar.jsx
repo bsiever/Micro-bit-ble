@@ -1,10 +1,10 @@
 import icon from "../images/logo.png";
 import { useContext, useState } from 'react';
-import { MicrobitContext } from "./Dashboard";
 import HelpModal from "./modals/HelpModal";
 import UsableTooltip from "./UsableTooltip";
 import Button from "react-bootstrap/esm/Button";
 import "./Navbar.css";
+import { MicrobitContext } from "../state/types.ts";
 
 const Navbar = ({adaptive, setView, onConnectClicked}) => {
     const {microbits} = useContext(MicrobitContext);

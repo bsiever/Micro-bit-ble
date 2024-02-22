@@ -4,7 +4,7 @@ import Button from "react-bootstrap/esm/Button";
 import Spinner from "react-bootstrap/Spinner";
 import {useState, useMemo, useRef, useEffect} from 'react';
 
-const EraseModal = ({microbit, onClose, onDelete, visible}) => {
+const EraseModal = ({uBit, onClose, onDelete, visible}) => {
 
     const [countdown, setCountdown] = useState(3);
     const timer = useRef(null);
@@ -32,8 +32,8 @@ const EraseModal = ({microbit, onClose, onDelete, visible}) => {
     </>, [countdown])
 
     return (
-        <BaseModal title={`Clear Microbit Data - ${microbit.name}`} visible={visible} actions={modalActions}>
-            You are about to erase all data from the following device's memory:<br/><br/><span style={{fontWeight: 'bold'}}>{microbit.name}</span><br/><br/>Are you sure you want to continue?
+        <BaseModal title={`Clear Microbit Data - ${uBit.name}`} visible={visible} actions={modalActions}>
+            You are about to erase all data from the following device's memory:<br/><br/><span style={{fontWeight: 'bold'}}>{uBit.name}</span><br/><br/>Are you sure you want to continue?
         </BaseModal>
     )
 }

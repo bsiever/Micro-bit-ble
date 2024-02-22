@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import Dygraph from 'dygraphs';
 
 const Graph = ({microbit}) => {
+    const uBit = microbit.uBit;
+
+    const filteredHeaders = [uBit.headers[0], ...uBit.headers.slice(1).filter((_, index) => microbit.columns[index]?.display)]
+
     useEffect(() => {
         let reboots = [];
 
@@ -11,14 +15,14 @@ const Graph = ({microbit}) => {
                 const s = r.slice(3);
                 return [
                     // Convert empty fields to null instead of NaN
-                    ...s.map(t => t.length ? parseFloat(t) : null)
-                ].concat([
-                    // Prevent mismatch when a new column appears
-                    ...Array(microbit.headers.length - s.length)
-                ])
+                    // filters the data for columns that are toggled off
+                    ...s.map(t => t.length ? parseFloat(t) : null).filter((_, index) => {
+                        return index == 0 || microbit.columns[index-1]?.display
+                    })
+                ]
             });
 
-            // Track cumulative microbit time across reboots
+            // Track cumulative uBit time across reboots
             let basetime = 0;
             data.forEach((d, i) => {
                 // Always bump each point to the correct position
@@ -41,10 +45,10 @@ const Graph = ({microbit}) => {
 
         const g = new Dygraph(
             document.getElementById("graph"),
-            plotReboots(microbit.rows),
+            plotReboots(uBit.rows),
             {
                 connectSeparatedPoints: true,
-                labels: microbit.headers,
+                labels: filteredHeaders,
                 labelsDiv: 'legend',
                 legend: 'always',
                 underlayCallback: function(canvas, area, g) {
@@ -61,14 +65,14 @@ const Graph = ({microbit}) => {
 
         const interval = setInterval(() => {
             g.updateOptions({
-                file: plotReboots(microbit.rows)
+                file: plotReboots(uBit.rows)
             })
         }, 1000);
 
         return () => {
             clearInterval(interval)
         }
-    }, [microbit.headers, microbit.rows]);
+    }, [filteredHeaders, uBit.rows]);
 
     return (
         <>

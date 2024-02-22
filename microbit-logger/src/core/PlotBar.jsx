@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { MicrobitContext } from "./Dashboard";
 
 import UsableTooltip from "./UsableTooltip";
 import { Dropdown } from "react-bootstrap";
+import { MicrobitContext } from "../state/types.ts";
 
 
 export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
@@ -77,7 +77,7 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                         <IconButton icon='delete' color='darkred' onClick={() => onButtonClick('erase')} tooltip='Clear micro:bit Data'/>
                         <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
                         {/*added in */}
-                        <IconButton icon='edit_square' color = 'green' onClick={() => onButtonClick('plotOptions')} tooltip="Plot Options"/>
+                        <IconButton icon='settings' color='#575757' onClick={() => onButtonClick('plotOptions')} tooltip="Plot Options"/>
                     </div>
                 ) : <Dropdown style={{marginLeft: '1rem'}}>
                     <Dropdown.Toggle as={CustomDropdownToggle}/>
@@ -86,6 +86,11 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                             <Icon icon='edit_square'/>
                             Edit Name
                         </Dropdown.Item>
+                        <Dropdown.Item onClick={() => onButtonClick('plotOptions')} class='dropdownOption'>
+                            <Icon icon='settings'/>
+                            Change Plot Options
+                        </Dropdown.Item>
+                        <Dropdown.Divider/>
                         <Dropdown.Item onClick={() => handleDownloadButtonClick()} class='dropdownOption'>
                             <Icon icon='download'/>
                             Download CSV
@@ -99,10 +104,7 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                             Disconnect micro:bit
                         </Dropdown.Item>
                         {/*added in */}
-                        <Dropdown.Item onClick={() => onButtonClick('plotOptions')} class='dropdownOption'>
-                            <Icon icon='edit_square'/>
-                            Change Plot Options
-                        </Dropdown.Item>
+                        
                         
                     </Dropdown.Menu>
                     </Dropdown>}

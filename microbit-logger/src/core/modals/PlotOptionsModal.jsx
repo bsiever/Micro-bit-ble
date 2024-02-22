@@ -6,16 +6,16 @@ const PlotOptionsModal = ({ microbit, visible, onClose, onBoxChecked }) => {
     // const [boxChecked, setBoxChecked] = useState([true, true]);
     const modalActions = (
         <>
-            <Button variant='secondary' onClick={onClose}>Cancel</Button>
+            <Button variant='secondary' onClick={onClose}>Close</Button>
         </>
     );
 
     return (
         <BaseModal visible={visible} actions={modalActions}>
-            Change which plot options are shown:
-            {microbit.headers.slice(1).map((one, index) => (
-                <div key={index}>
-                    <Form.Check type='checkbox' label={one} value={true} onChange={() => {}} />
+            Current Time Series:
+            {microbit.columns.map((column, index) => (
+                <div key={`${microbit.id}_plotOptions_${index}`}>
+                    <Form.Check type='checkbox' checked={column.display} label={column.name} value={column.display} onChange={() => onBoxChecked(column)} />
                 </div>
             ))}
         </BaseModal>

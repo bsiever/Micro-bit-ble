@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { MicrobitContext } from './Dashboard';
+import { MicrobitContext } from '../state/types.ts';
 
 function Loadingbar({microbit}) {
   const [progress, setProgress] = useState(0);
