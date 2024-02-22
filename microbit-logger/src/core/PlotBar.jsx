@@ -76,6 +76,8 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                         <IconButton icon='download' color='#1da121' onClick={() => handleDownloadButtonClick()} tooltip='Download CSV'/>
                         <IconButton icon='delete' color='darkred' onClick={() => onButtonClick('erase')} tooltip='Clear micro:bit Data'/>
                         <IconButton icon='cancel' color='red' onClick={() => onButtonClick('disconnect')} tooltip='Disconnect micro:bit'/>
+                        {/*added in */}
+                        <IconButton icon='edit_square' color = 'green' onClick={() => onButtonClick('plotOptions')} tooltip="Plot Options"/>
                     </div>
                 ) : <Dropdown style={{marginLeft: '1rem'}}>
                     <Dropdown.Toggle as={CustomDropdownToggle}/>
@@ -96,6 +98,12 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                             <Icon icon='cancel'/>
                             Disconnect micro:bit
                         </Dropdown.Item>
+                        {/*added in */}
+                        <Dropdown.Item onClick={() => onButtonClick('plotOptions')} class='dropdownOption'>
+                            <Icon icon='edit_square'/>
+                            Change Plot Options
+                        </Dropdown.Item>
+                        
                     </Dropdown.Menu>
                     </Dropdown>}
             </div>

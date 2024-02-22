@@ -7,6 +7,7 @@ import DisconnectModal from "./modals/DisconnectModal";
 import EraseModal from "./modals/EraseModal";
 import Graph from "../graph/Graph";
 import EditNameModal from "./modals/EditNameModal";
+import PlotOptionsModal from "./modals/PlotOptionsModal";
 
 const DashboardView = ({adaptive, view}) => {
     const {microbits, microbitManager, updateContext} = useContext(MicrobitContext);
@@ -59,6 +60,17 @@ const DashboardView = ({adaptive, view}) => {
                     }}
                     visible={visible}
                     />
+            //added code
+            case 'plotOptions':
+                return <PlotOptionsModal
+                    microbit={microbit}
+                    onClose={() => setModalShown(null)}
+                    onBoxChecked={() => {
+
+                    }}
+                    visible={visible}
+                    />
+            
             default:
                 return <></>
         }
