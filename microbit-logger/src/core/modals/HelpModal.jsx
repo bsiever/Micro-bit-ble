@@ -71,7 +71,13 @@ const HelpModal = ({visible, setVisible}) => {
                         <Accordion.Body>
                             To download the data, use the 'Download CSV' button
                             in the menu above the data table or graph, which will procede to download all of the micro:bit data in .csv format (Comma-Seperated Values). This
-                            file can be opened by any spreadsheet viewer.
+                            file can be opened by any spreadsheet viewer.<br/><br/>
+
+                            <b>Emailing your data to yourself from a mobile device</b><br/>
+                            Once downloaded, a notification about your file should drop down. Tap
+                            this notification to open your file. Select the three dots to open the menu. 
+                            Tap share and export. Tap share a copy. Select the format you want to send it in, and then tap ok.
+                            Then select the app you would like to send your data too. Use your chosen app to send your data. 
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
