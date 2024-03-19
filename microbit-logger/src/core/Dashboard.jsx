@@ -13,7 +13,7 @@ import {debounce} from "lodash"
 
 const Dashboard = () => {
     // Define breakpoint for adaptive rendering
-    const mediaQuery = window.matchMedia("(min-width: 600px)");
+    const mediaQuery = window.matchMedia("(min-width: 800px)");
     // Adapt to current display width
     const [adaptive, setAdaptive] = useState(mediaQuery.matches);
     // Dismissal status of connection error notification

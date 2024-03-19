@@ -45,13 +45,13 @@ code {
 
 .tab {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 10rem;
   height: 5rem;
   font-size: 1.2em;
   font-weight: bold;
-  border-left: 2px solid rgb(58, 58, 58);
+  padding-left: 5%;
+  color: white;
 }
 
 .tab:first-child {

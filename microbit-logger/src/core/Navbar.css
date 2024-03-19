@@ -1,10 +1,8 @@
 #navbar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  height: 8rem;
-  background-color: #F8F8F8;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
 }
 
 #navbar > div {
@@ -17,6 +15,18 @@
   margin-right: 1.5%;
 }
 
+#showCanvas{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0.5rem;
+  background-color: rgb(81, 84, 93);
+  align-content: center;
+}
+
+/* Kept for review
 @media screen and (max-width: 600px) {
   #navbar {
     position: relative;
@@ -37,6 +47,7 @@
     margin: 0;
   }
 }
+*/
 
 .helpButton {
   text-align: center;
@@ -49,6 +60,7 @@
   font-weight: bold;
   scale: 1;
   transition: scale, .2s;
+  align-content: center;
 }
 
 .helpButton:hover {
@@ -56,5 +68,53 @@
   transition: scale, .2s;
   cursor: pointer;
 }
+.helpDiv{
+  cursor: pointer;
+  width: 80%;
+}
+.drawerNav {
+  height: 100%;
+  background-color: rgb(81, 84, 93); 
+}
 
+.selected {
+  border-left: 3px solid gray; 
+}
 
+@media screen and (max-width: 800px) {
+  .offcanvas {
+    --bs-offcanvas-width: 100% !important;
+  }
+  .tab {
+    display: flex;
+    align-items: center;
+    width: 10rem;
+    height: 5rem;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 1rem !important;
+    color: white;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #dashboard {
+    width: 80vw !important; 
+    margin-left: auto;
+  }
+}
+
+.offcanvas {
+  --bs-offcanvas-width: 20%;
+}
+.accordianWrapper{
+  background-color: rgb(81, 84, 93); 
+  max-width: 98%;
+}
+.microbit.active{
+  background-color: rgb(69, 71, 79); 
+  border-radius: 10px;
+}
+.acItem{
+  color: white;
+}
