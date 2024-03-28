@@ -70,3 +70,14 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+// Causes the service worker to work network first so that updates can be made without having to clear cache
+self.addEventListener('fetch', (event) => {
+  event.respondWith(async function () {
+    try {
+      return await fetch(event.request);
+    } catch (err) {
+      return caches.match(event.request);
+    }
+  }());
+});
