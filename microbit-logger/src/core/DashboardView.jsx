@@ -93,7 +93,7 @@ const DashboardView = ({adaptive, view}) => {
                         microbit={microbit.uBit}
                         onButtonClick={(type) => setModalShown(type)}
                     />
-                    <div style={{height: '58rem', overflowY: 'scroll'}}>
+                    <div style={{height: '91vh', overflowY: 'scroll'}}>
                     {tableReady
                         ? view != 'table'
                             ? <Graph microbit={microbit}/>

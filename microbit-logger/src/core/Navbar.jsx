@@ -20,7 +20,7 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
     
     return (
         <>
-            <Button id="showCanvas" className="d-lg-none" onClick={() => setShow(true)}><img src={menu} style={{ width: '2rem', height: '2rem', marginLeft: '-0.2rem' }} /></Button>
+            <Button id="showCanvas" className="d-lg-none" onClick={() => setShow(true)}><img src={menu} style={{ width: '1.5rem', height: '1.5rem', marginLeft: '-0.45rem', marginTop: '-0.45rem' }} /></Button>
 
             <Offcanvas show={displayed} onHide={() => setShow(false)} placement="start" backdrop={false} keyboard={false}>
                     {adaptive ? (

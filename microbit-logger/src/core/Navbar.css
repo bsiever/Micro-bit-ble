@@ -16,11 +16,11 @@
 }
 
 #showCanvas{
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   position: absolute;
   top: 0;
-  left: 0;
+  left: -0.1rem;
   margin: 0.5rem;
   background-color: rgb(81, 84, 93);
   align-content: center;
