@@ -67,7 +67,7 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                 {adaptive && <div style={{marginRight: '10%'}}><IconButton icon='edit_square' onClick={() => onButtonClick('editName')} tooltip="Edit Name"/></div>}
             </div>
             <div style={{display: 'flex', alignItems: 'center', width: '60%', height: '100%'}}>
-                <div class='memoryBar' style={{flexGrow: 1, minWidth: '25%'}}>
+                <div className='memoryBar' style={{flexGrow: 1, minWidth: '25%'}}>
                     <div style={{ display: 'flex', alignItems: 'center', height: '100%', borderRadius: '10px 0 0 10px', width: `${progress}%`, backgroundColor: getColor()}}/>
                     <div style={{position: 'relative', left: '50%', transform: `translateX(-50%)`}}>{`${progress}% ${adaptive ? 'memory full' : ''}`}</div>
                 </div>
@@ -82,24 +82,24 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
                 ) : <Dropdown style={{marginLeft: '1rem'}}>
                     <Dropdown.Toggle as={CustomDropdownToggle}/>
                     <Dropdown.Menu align='end'>
-                        <Dropdown.Item onClick={() => onButtonClick('editName')} class='dropdownOption'>
+                        <Dropdown.Item onClick={() => onButtonClick('editName')} className='dropdownOption'>
                             <Icon icon='edit_square'/>
                             Edit Name
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => onButtonClick('plotOptions')} class='dropdownOption'>
+                        <Dropdown.Item onClick={() => onButtonClick('plotOptions')} className='dropdownOption'>
                             <Icon icon='settings'/>
                             Change Plot Options
                         </Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item onClick={() => handleDownloadButtonClick()} class='dropdownOption'>
+                        <Dropdown.Item onClick={() => handleDownloadButtonClick()} className='dropdownOption'>
                             <Icon icon='download'/>
                             Download CSV
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => onButtonClick('erase')} class='dropdownOption'>
+                        <Dropdown.Item onClick={() => onButtonClick('erase')} className='dropdownOption'>
                             <Icon icon='delete'/>
                             Clear micro:bit Data
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => onButtonClick('disconnect')} class='dropdownOption'>
+                        <Dropdown.Item onClick={() => onButtonClick('disconnect')} className='dropdownOption'>
                             <Icon icon='cancel'/>
                             Disconnect micro:bit
                         </Dropdown.Item>
@@ -120,14 +120,14 @@ const CustomDropdownToggle = React.forwardRef(({onClick}, ref) => (
 ))
 
 const Icon = ({icon, color, size}) => {
-    return <span class='material-symbols-outlined' style={{position: 'relative', fontSize: size ?? '1rem', transform: 'translateY(10%)', marginRight: '.25rem', color: color ?? "black"}}>{icon}</span>;
+    return <span className='material-symbols-outlined' style={{position: 'relative', fontSize: size ?? '1rem', transform: 'translateY(10%)', marginRight: '.25rem', color: color ?? "black"}}>{icon}</span>;
 }
 
 const IconButton = ({icon, color, onClick, tooltip}) => {
     return (
         <UsableTooltip title={tooltip}>
             <div className='iconButton' onClick={onClick} style={{display: 'flex', alignItems: 'center', justifyContent: 'center', color: color ?? '#2f73e0'}}>
-                <span class='material-symbols-outlined' style={{fontSize: '2rem'}}>{icon}</span>
+                <span className='material-symbols-outlined' style={{fontSize: '2rem'}}>{icon}</span>
             </div>
         </UsableTooltip>
     )

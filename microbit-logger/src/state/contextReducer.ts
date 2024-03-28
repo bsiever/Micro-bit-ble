@@ -36,7 +36,6 @@ const microbitContextReducer = (state: MicrobitContextType, action: MicrobitCont
             }))
 
             newState.microbits = [...state.microbits, {id: microbit.id, uBit: microbit, columns}]
-            console.log(newState.microbits);
         }
     } else if(actionType === MicrobitContextAction.DISCONNECT_MICROBIT) {
         newState.microbits.findIndex((microbit) => microbit.id === data.id) != -1 
