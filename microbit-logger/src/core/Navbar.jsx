@@ -41,7 +41,7 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
 
                 <Offcanvas.Body className="drawerNav" style={{overflowX: 'hidden'}}>
                     <div id='navbar'>
-                        <div style={{ display: 'flex', flexDirection: 'column', fontSize: '25px', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', fontSize: '25px', width: '100%', marginTop: '2vh' }}>
                             <NavbarMicrobitDisplay/>
                         </div>
                         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingLeft: '1rem', paddingBottom: '1rem' }}>
