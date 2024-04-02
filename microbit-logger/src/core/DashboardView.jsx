@@ -10,10 +10,12 @@ import PlotOptionsModal from "./modals/PlotOptionsModal";
 import { MicrobitContext } from "../state/types.ts";
 import { MicrobitContextAction } from "../state/contextReducer.ts";
 
-const DashboardView = ({adaptive, view}) => {
-    const {microbits, microbitManager, updateContext} = useContext(MicrobitContext);
+const DashboardView = ({adaptive}) => {
+    const {microbits, microbitManager, updateContext, view} = useContext(MicrobitContext);
     const [tableReady, setTableReady] = useState(null);
     const [modalShown, setModalShown] = useState(null);
+
+    const selectedMicrobit = microbits[view[0]]
 
     useEffect(() => {
         function ready(e) {
@@ -25,7 +27,6 @@ const DashboardView = ({adaptive, view}) => {
     }, [])
 
     const renderModal = (uBit, visible) => {
-        const microbit = microbits.find((microbit) => microbit.id === uBit.id);
         switch(visible) {
             case 'erase':
                 return <EraseModal
@@ -65,15 +66,15 @@ const DashboardView = ({adaptive, view}) => {
             //added code
             case 'plotOptions':
                 return <PlotOptionsModal
-                    microbit={microbit}
+                    microbit={selectedMicrobit}
                     onClose={() => setModalShown(null)}
                     onBoxChecked={(column) => {
                         column.display = !column.display;
 
-                        const newColumns = microbit.columns.slice();
+                        const newColumns = selectedMicrobit.columns.slice();
                         newColumns.splice(newColumns.findIndex((columnSearched) => columnSearched.name === column.name), 1, column);
 
-                        updateContext({actionType: MicrobitContextAction.UPDATE_MICROBIT_DISPLAY, data: {...microbit, columns: newColumns}})
+                        updateContext({actionType: MicrobitContextAction.UPDATE_MICROBIT_DISPLAY, data: {...selectedMicrobit, columns: newColumns}})
                     }}
                     visible={visible}
                     />
@@ -85,26 +86,23 @@ const DashboardView = ({adaptive, view}) => {
 
     return (
         <div id='display'>
-            {microbits.map((microbit) => {
-                
-                return <div key={microbit.id}>
+                <div key={selectedMicrobit.id}>
                     <PlotBar
                         adaptive={adaptive}
-                        microbit={microbit.uBit}
+                        microbit={selectedMicrobit.uBit}
                         onButtonClick={(type) => setModalShown(type)}
                     />
                     <div style={{height: '91vh', overflowY: 'scroll'}}>
                     {tableReady
-                        ? view != 'table'
-                            ? <Graph microbit={microbit}/>
-                            : <DataTable microbit={microbit.uBit}/>
-                        : <Loadingbar microbit={microbit.uBit}/>
+                        ? view[1] != 1
+                            ? <Graph microbit={selectedMicrobit}/>
+                            : <DataTable microbit={selectedMicrobit.uBit}/>
+                        : <Loadingbar microbit={selectedMicrobit.uBit}/>
                     }   
                     </div>
-                    {renderModal(microbit.uBit, modalShown)}
+                    {renderModal(selectedMicrobit.uBit, modalShown)}
                 </div>
-            })}
-        </div>
+            </div>
     )
 }
 

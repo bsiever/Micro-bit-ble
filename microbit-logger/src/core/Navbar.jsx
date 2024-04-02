@@ -10,9 +10,10 @@ import "./Navbar.css";
 import { Offcanvas } from "react-bootstrap";
 import Accordion from "./Accordian";
 import { MicrobitContext } from "../state/types.ts";
+import NavbarMicrobitDisplay from "./NavbarMicrobitDisplay.tsx";
 
 const Navbar = ({adaptive, setView, onConnectClicked}) => {
-    const {microbits} = useContext(MicrobitContext);
+    const {microbits, updateContext} = useContext(MicrobitContext);
     const [helpVisible, setHelpVisible] = useState(false);
     const [show, setShow] = useState(true);
 
@@ -38,17 +39,13 @@ const Navbar = ({adaptive, setView, onConnectClicked}) => {
                     )
                 }
 
-                <Offcanvas.Body className="drawerNav">
+                <Offcanvas.Body className="drawerNav" style={{overflowX: 'hidden'}}>
                     <div id='navbar'>
                         <div style={{ display: 'flex', flexDirection: 'column', fontSize: '25px', width: '100%' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                {/* <div className="accordianWrapper"><Accordion /></div>*/}
-                                <UsableTooltip title="Switch to Graph View"><div className="tab" onClick={() => setView('graph')}><img src={graph} style={{ width: '2rem', height: '2rem', marginRight: '0.5rem' }} />Graphs</div></UsableTooltip>
-                                <UsableTooltip title="Switch to Data Table View"><div className="tab" onClick={() => setView('table')}><img src={data} style={{ width: '2rem', height: '2rem', marginRight: '0.5rem' }} />Data</div></UsableTooltip>
-                            </div>
+                            <NavbarMicrobitDisplay/>
                         </div>
                         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingLeft: '1rem', paddingBottom: '1rem' }}>
-                            {microbits.length == 0 && <Button onClick={onConnectClicked} variant='primary' size="lg" style={{ width: '8rem', height: '4rem', marginRight: '1rem', marginBottom: '1rem' }}>Connect</Button>}
+                            <Button onClick={onConnectClicked} variant='primary' size="lg" style={{ width: '8rem', height: '4rem', marginRight: '1rem', marginBottom: '1rem' }}>Connect</Button>
                             <div className="helpDiv" onClick={() => setHelpVisible(true)} style={{display: 'flex'}}><IconButton icon={'Help'} tooltip='Help'/><span style={{ marginLeft: '10px', fontSize: '30px', color: 'white', fontWeight: 'bold' }}>Help</span></div>
                         </div>
                     </div>

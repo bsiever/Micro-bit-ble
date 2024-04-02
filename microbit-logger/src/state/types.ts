@@ -14,6 +14,7 @@ type MicrobitContextType = {
     microbitManager: uBitManager;
     microbits: Microbit[];
     adaptive: boolean;
+    view: number[];
     updateContext: (action: MicrobitContextActionType) => void;
 }
 
@@ -42,6 +43,6 @@ type MicrobitColumn = {
 }
 
 // declares the context here so that it can be exported to other components
-const MicrobitContext = React.createContext<MicrobitContextType>({} as MicrobitContextType);
+const MicrobitContext = React.createContext<MicrobitContextType>({view: [0, 0]} as MicrobitContextType);
 
 export {MicrobitColumn, Microbit, MicrobitContextType, MicrobitContext}

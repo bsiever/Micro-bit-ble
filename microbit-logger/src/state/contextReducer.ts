@@ -7,6 +7,7 @@ enum MicrobitContextAction {
     DISCONNECT_MICROBIT = 1,
     DATA_READY = 2,
     UPDATE_MICROBIT_DISPLAY = 3,
+    CHANGE_VIEW = 4,
 }
 
 type MicrobitContextActionType = {
@@ -56,6 +57,10 @@ const microbitContextReducer = (state: MicrobitContextType, action: MicrobitCont
 
         // deletes and replaces the existing microbit object with the new one passed in
         newState.microbits.splice(state.microbits.findIndex((microbit) => microbit.id === microbitObject.id), 1, microbitObject);
+    } else if(actionType === MicrobitContextAction.CHANGE_VIEW) {
+        const newView = data as number[];
+
+        newState.view = newView;
     } else{
         return {...newState, ...data}
     }

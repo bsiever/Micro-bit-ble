@@ -22,8 +22,8 @@ const Dashboard = () => {
     const [disconnect, setDisconnect] = useState(null);
 
     const microbitManager = useRef(new uBitManager());
-    const [view, setView] = useState("graph");
-    const [context, dispatch] = useReducer(microbitContextReducer, {adaptive, microbits: [], microbitManager: microbitManager.current, updateContext: (action) => dispatch(action)})
+    const [view, setView] = useState([0, 0]);
+    const [context, dispatch] = useReducer(microbitContextReducer, {adaptive, microbits: [], microbitManager: microbitManager.current, view: [0, 0], updateContext: (action) => dispatch(action)})
 
     // function that makes sure the call to update state isnt being called more than once every 100ms (necessary for the way some events are handled)
     const updateState = useCallback(
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 <Navbar adaptive={adaptive} setView={setView} onConnectClicked={handleConnectMicrobitButton}/>
                 {context.microbits.length === 0
                     ? <Landing adaptive={adaptive} onConnectClicked={handleConnectMicrobitButton}/>
-                    : <DashboardView adaptive={adaptive} view={view}/>
+                    : <DashboardView adaptive={adaptive}/>
                 }
             </div>
         </MicrobitContext.Provider>
