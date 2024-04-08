@@ -140,7 +140,7 @@
 }
 
 .accordion-button {
-  background: transparent !important;
+  background: rgb(81, 84, 93) !important;
   border: none !important;
   color: white !important;
   outline: none !important;

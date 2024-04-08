@@ -57,6 +57,7 @@ const Graph = ({microbit}) => {
                 // Preserve reboot time for graphical indicator
                 if (rows[i][1] === "true") {
                     if (!reboots.some(r => r.down === data[i][0].getTime())) {
+                        // Push results in reverse chronological order
                         reboots.push({
                             down: data[i][0].getTime(),
                             up: data[i + 1][0].getTime()
@@ -69,31 +70,31 @@ const Graph = ({microbit}) => {
         }
 
         const data = plotReboots(uBit.rows);
-        
+
         // Get timestamp of most recent boot
         const boot = reboots.length > 0
-            ? reboots[reboots.length - 1].up
+            ? reboots[0].up
             : data?.length > 0 ? data[0][0] : undefined;
 
         // Display micro:bit time instead of pseudotime
         function switcher(x, dateCall, numberCall) {
             // x is only a fuzzy approximation of the actual value
-            if(data && microbit.rows?.length > 0) {
+            if(data && uBit.rows?.length > 0) {
                 const lastIndex = data.findLastIndex(
                     (d) => d[0] <= x
                 );
-
                 if (lastIndex >= 0 && data[lastIndex][0] < boot) {
-                    return numberCall(microbit.rows[lastIndex][3])
+                    return numberCall(uBit.rows[lastIndex][3])
                 }
             }
+
             return dateCall(x)
         }
 
         const g = new Dygraph(
             document.getElementById("graph"),
             data ?? [[0, ...filteredHeaders.slice(1).map(() => undefined)]],
-            {   
+            {
                 axes: {
                     x: {
                         axisLabelFormatter: function(x, granularity, opts) {

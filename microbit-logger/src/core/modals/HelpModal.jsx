@@ -62,8 +62,8 @@ const HelpModal = ({visible, setVisible}) => {
                         <Accordion.Body>
                             <b>Disconnecting a Micro:bit</b><br/>
                             Clicking disconnect will disconnect the currently listed micro:bit.<br/><br/>
-                            <b>Switching between Micro:bits (not currently implemented)</b><br/>
-                            Open the dropdown menu near your micro:bit's name and select or deselect which micro:bits you want to be displayed.<br/><br/>
+                            <b>Switching between Micro:bits</b><br/>
+                            Open the dropdown menu near your micro:bit's name and select the display option for the micro:bit you want to view.<br/><br/>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="5">
