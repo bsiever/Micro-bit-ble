@@ -26,7 +26,7 @@ const Graph = ({microbit}) => {
         let reboots = [];
 
         function plotReboots(rows) {
-            if(rows.length == 0) return [];
+            if(rows.length === 0) return [];
 
             let data = rows.map((r) => {
                 // Extract one or more y-axes
@@ -40,7 +40,7 @@ const Graph = ({microbit}) => {
                 ]
             });
 
-            if(data.length == 0) data = null;
+            if(data.length === 0) data = null;
             // Work backwards to calculate psuedotime before reboots
             const last = rows.length - 1;
             for (let i = last - 1; i >= 0; i--) {
@@ -66,6 +66,10 @@ const Graph = ({microbit}) => {
                             down: data[i][0].getTime(),
                             up: data[i + 1][0].getTime()
                         })
+                    }
+                    // Disregard first data point for cosmetic discontinuity
+                    for (let j = 1; j < data[i].length; j++) {
+                        data[i][j] = null
                     }
                 }
                 
@@ -129,7 +133,6 @@ const Graph = ({microbit}) => {
                         }
                     },
                 },
-                connectSeparatedPoints: true,
                 labels: uBit.headers,
                 labelsDiv: 'legend',
                 legend: 'always',
