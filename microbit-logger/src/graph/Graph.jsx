@@ -69,7 +69,7 @@ const Graph = ({microbit}) => {
                     }
                     // Disregard first data point for cosmetic discontinuity
                     for (let j = 1; j < data[i].length; j++) {
-                        data[i][j] = null
+                        data[i][j] = NaN
                     }
                 }
                 
@@ -133,6 +133,7 @@ const Graph = ({microbit}) => {
                         }
                     },
                 },
+                connectSeparatedPoints: true,
                 labels: uBit.headers,
                 labelsDiv: 'legend',
                 legend: 'always',
