@@ -154,7 +154,7 @@ const Graph = ({microbit}) => {
         return () => {
             clearInterval(interval)
         }
-    }, []);
+    }, [filteredHeaders]);
 
     return (
         <span style={{position: 'relative'}}>
