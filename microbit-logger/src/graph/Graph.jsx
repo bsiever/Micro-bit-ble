@@ -167,7 +167,7 @@ const Graph = ({microbit}) => {
 
     return (
         <span style={{position: 'relative'}}>
-            <div id="graph" style={{width: '100%', height: '95%'}}></div>
+            <div id="graph" style={{width: '100%', height: '95%', overflow: 'hidden'}}></div>
             <div id="legend"></div>
         </span>
     )

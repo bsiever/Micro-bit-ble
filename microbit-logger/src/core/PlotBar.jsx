@@ -10,8 +10,8 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
 
     const {microbitManager} = useContext(MicrobitContext);
 
-    const handleDownloadButtonClick = async (event) => {
-        const file = new File([microbit.getCSV()], 'uBitData.csv', {
+    const handleDownloadButtonClick = async (uBit, event) => {
+        const file = new File([microbit.getCSV()], `${microbit.label ?? microbit.name}.csv`, {
             type: 'text/csv'
         })
         function download() {

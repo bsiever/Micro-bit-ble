@@ -33,7 +33,7 @@ const EraseModal = ({uBit, onClose, onDelete, visible}) => {
 
     return (
         <BaseModal title={`Clear Microbit Data - ${uBit.name}`} visible={visible} actions={modalActions}>
-            You are about to erase all data from the following device's memory:<br/><br/><span style={{fontWeight: 'bold'}}>{uBit.name}</span><br/><br/>Are you sure you want to continue?
+            You are about to erase all data from the following device's memory:<br/><br/><span style={{fontWeight: 'bold'}} children={`${uBit.label ? uBit.label + " (" + uBit.name + ")" : uBit.name}`}/><br/><br/>Are you sure you want to continue?
         </BaseModal>
     )
 }
