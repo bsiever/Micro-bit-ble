@@ -69,7 +69,7 @@ export const PlotBar = ({adaptive, microbit, onButtonClick}) => {
             <div style={{display: 'flex', alignItems: 'center', width: '60%', height: '100%'}}>
                 <div className='memoryBar' style={{flexGrow: 1, minWidth: '25%'}}>
                     <div style={{ display: 'flex', alignItems: 'center', height: '100%', borderRadius: '10px 0 0 10px', width: `${progress}%`, backgroundColor: getColor()}}/>
-                    <div style={{position: 'relative', left: '35%', transform: `translateX(-50%)`}}>{`${progress}% ${adaptive ? 'memory full' : ''}`}</div>
+                    <div style={{position: 'relative', left: '50%', transform: `translateX(-50%)`}}>{`${progress}% ${adaptive ? 'memory full' : ''}`}</div>
                 </div>
                 {adaptive ? (
                     <div style={{display: 'flex', justifyContent: 'space-around', margin: '0 1% 0 3%', width: '10rem'}}>

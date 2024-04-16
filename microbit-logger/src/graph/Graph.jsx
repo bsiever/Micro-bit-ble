@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Dygraph from 'dygraphs';
 import {
     dateAxisLabelFormatter,
@@ -10,20 +10,24 @@ import "../graph/graph.css";
 const REFRESH_RATE = 1000;
 
 const Graph = ({microbit}) => {
+    const graphRef = useRef();
     const uBit = microbit.uBit;
 
-    const filteredHeaders = [
-        uBit.headers[0],
-        ...uBit.headers.slice(1).filter(
-            (_, index) => microbit.columns[index]?.display
-        )
-    ]
+    // whenever a column is updated, we update dygraphs series visibility
+    useEffect(() => {
+        const visibility = microbit.columns.map((column) => column.display)
+        if(graphRef.current) {
+            graphRef.current.setVisibility(visibility);
+        }
+    }, [microbit.columns])
 
     useEffect(() => {
         let highlight = null;
         let reboots = [];
 
         function plotReboots(rows) {
+            if(rows.length == 0) return [];
+
             let data = rows.map((r) => {
                 // Extract one or more y-axes
                 const s = r.slice(4);
@@ -32,7 +36,7 @@ const Graph = ({microbit}) => {
                     r[2] ? new Date(r[2]) : null,
                     // Convert empty fields to null instead of NaN
                     // filters the data for columns that are toggled off
-                    ...s.map(t => t.length ? parseFloat(t) : null).filter((_, index) => microbit.columns[index]?.display)
+                    ...s.map(t => t.length ? parseFloat(t) : null)
                 ]
             });
 
@@ -64,6 +68,10 @@ const Graph = ({microbit}) => {
                         })
                     }
                 }
+                
+                while(data[i].length < uBit.headers.length) {
+                    data[i].push(null);
+                }
             }
 
             return data
@@ -91,9 +99,9 @@ const Graph = ({microbit}) => {
             return dateCall(x)
         }
 
-        const g = new Dygraph(
+        graphRef.current = new Dygraph(
             document.getElementById("graph"),
-            data ?? [[0, ...filteredHeaders.slice(1).map(() => undefined)]],
+            data.length > 0 ? data : [[0, ...uBit.headers.slice(1).map(() => undefined)]],
             {
                 axes: {
                     x: {
@@ -122,7 +130,7 @@ const Graph = ({microbit}) => {
                     },
                 },
                 connectSeparatedPoints: true,
-                labels: filteredHeaders,
+                labels: uBit.headers,
                 labelsDiv: 'legend',
                 legend: 'always',
                 highlightCallback: (event) => highlight = event,
@@ -141,20 +149,21 @@ const Graph = ({microbit}) => {
 
         const interval = setInterval(() => {
             const data = plotReboots(uBit.rows);
-            g.updateOptions({
+
+            graphRef.current.updateOptions({
                 file: data ?? undefined
             });
 
             // Fix legend details disappearing every update
             if (highlight !== null) {
-                g.mouseMove_(highlight)
+                graphRef.current.mouseMove_(highlight)
             }
         }, REFRESH_RATE);
 
         return () => {
             clearInterval(interval)
         }
-    }, [filteredHeaders]);
+    }, []);
 
     return (
         <span style={{position: 'relative'}}>

@@ -12,7 +12,7 @@ const NavbarMicrobitDisplay = () => {
         {microbits.map((microbit, index) => {
             const uBit = microbit.uBit;
             return (
-                <Accordion.Item eventKey={index.toString()}>
+                <Accordion.Item eventKey={index.toString()} key={index}>
                     <Accordion.Header style={{borderBottom: "none"}}>{uBit.label ?? uBit.name}</Accordion.Header>
                     <Accordion.Body>
                         <ul style={{listStyleType: 'none'}} className='buttonList'>

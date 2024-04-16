@@ -8,12 +8,12 @@ const DataTable = ({ microbit }) => {
     renderHeaders.splice(1, 1); // removes reboot time header
 
     const rows = microbit.getData();
-
+ 
     return (
-        <div className='table'>
-            <Table bordered style={{ fontSize: '1.25em', height: '100%', overflowY: 'scroll' }}>
+        <div className='table' style={{height: "100%", overflowY: 'scroll'}}>
+            <Table bordered style={{ fontSize: '1.25em', height: '100%' }}>
                 <thead>
-                    <tr style={{ borderBottom: '1px solid black', position: 'sticky', top: '0', background: 'white' }}>
+                    <tr style={{ borderBottom: '1px solid black', position: 'sticky', top: 0, background: 'white' }}>
                         {renderHeaders}
                     </tr>
                 </thead>
